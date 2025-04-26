@@ -13,10 +13,10 @@ export async function authenticateAction(
     if (error instanceof AuthError) {
       console.log('Error:', error);
       switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid credentials.';
-        default:
-          return 'Something went wrong.';
+      case 'CredentialsSignin':
+        return 'Invalid credentials.';
+      default:
+        return 'Something went wrong.';
       }
     }
     throw error;

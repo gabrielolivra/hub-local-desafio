@@ -6,12 +6,12 @@ import { LoadingComponent } from '@/app/ui/loading';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useActionState } from 'react';
 
-
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
     authenticateAction,
     undefined,
   );
+
   return (
     <div className='w-[400px] flex flex-col items-center justify-center gap-4 rounded-lg'>
       {isPending && <LoadingComponent />}

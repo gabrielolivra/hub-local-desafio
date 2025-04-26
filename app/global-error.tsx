@@ -3,10 +3,6 @@
 import NextError from 'next/error';
 
 export default function GlobalError() {
-  // useEffect(() => {
-  //   const newrelic = require('newrelic');
-  //   newrelic.noticeError(error);
-  // }, [error]);
 
   return (
     <html>

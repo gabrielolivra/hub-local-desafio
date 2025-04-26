@@ -75,7 +75,6 @@ export function ViewDataButton({
   onClick,
   children,
   className,
-  disabled,
 }: buttonProps) {
   return (
     <button
@@ -95,7 +94,7 @@ export function RemoveDataButton({ onClick, disabled }: buttonProps) {
       disabled={disabled}
       type="button"
       className={`rounded-md border bg-hub-secondary-orange text-hub-white p-2 hover:bg-hub-secondary-orange/70 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-        }`}
+      }`}
     >
       <span className="sr-only">Remove Data</span>
       <TrashIcon className="w-3" />

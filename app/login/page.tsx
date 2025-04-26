@@ -15,11 +15,11 @@ export default function LoginPage() {
       </div>
       <div className="max-w-[400px]h-screen mr-14 flex flex-col items-center justify-center gap-4 rounded-lg">
         <Image
-          src={require('@/app/ui/assets/logo.png')}
+          src="/ui/assets/logo.png"
           width={150}
           height={150}
           className="object-contain"
-          alt=""
+          alt="Logo"
         />
         <LoginForm />
       </div>

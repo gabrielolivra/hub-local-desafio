@@ -32,7 +32,6 @@
     ".next/types/**/*.ts",
     "app/seed/placeholder-data.ts",
     "scripts/seed.js",
-    "newrelic.cjs"
   ],
   "exclude": ["node_modules"]
 }
