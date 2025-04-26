@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number']:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+input[type='text']:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+
+input[type='password']:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+
+input[type='email']:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+
+input[type='date']:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+
+input:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+textarea:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
+
+select:focus {
+  --tw-ring-color: none;
+  border-color: none;
+}
