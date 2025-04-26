@@ -1,7 +1,8 @@
-import Image from 'next/image';
-import LoginForm from './_partial/login-form';
+import Image from "next/image";
+import LoginForm from "../login/_partial/login-form";
+import RegisterForm from "./_partial/register-form";
 
-export default function LoginPage() {
+export default function Page() {
   return (
     <main className="flex items-center justify-between  md:h-screen">
       <div>
@@ -21,8 +22,7 @@ export default function LoginPage() {
           className="object-contain"
           alt=""
         />
-        <LoginForm />
+        <RegisterForm />
       </div>
-    </main>
-  );
+    </main>)
 }

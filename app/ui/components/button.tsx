@@ -12,9 +12,8 @@ const typeButton = tv({
     type: {
       error:
         'bg-hub-secondary-orange text-white hover:border-2 border-hub-secondary-orange hover:text-hub-secondary-orange hover:bg-white',
-      success:
-        'bg-hub-primary-light text-hub-secondary-cream hover:border-2 border-hub-primary-light hover:text-hub-primary-light hover:bg-white',
-      info: 'bg-hub-secondary-ciano text-white hover:border-2 border-hub-secondary-yellow hover:text-hub-secondary-yellow hover:bg-white',
+      success: 'text-white bg-hub-primary-light hover:border-2 border-hub-primary-light hover:text-hub-primary-light hover:bg-white',
+      info: 'bg-hub-secondary-ciano text-white hover:border-2 border-hub-secondary-ciano hover:text-hub-secondary-ciano hover:bg-white',
       warn: 'bg-hub-secondary-brown text-white hover:border-2 border-hub-secondary-brown hover:text-hub-secondary-brown hover:bg-white',
     },
     disabled: {
@@ -30,7 +29,7 @@ export default function Button({
   tipo: type,
   children,
   className,
-  badgeContent, // Add this prop
+  badgeContent,
   ...rest
 }: typeButton) {
   const buttonContent = (
