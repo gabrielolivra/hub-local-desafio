@@ -1,18 +1,7 @@
-import type { NextConfig } from 'next';
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-
-const baseConfig: NextConfig = {
-  output: 'standalone',
-  experimental: {
-    optimizePackageImports: ['icon-library'],
-    authInterrupts: true,
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: false,
+  output: 'standalone', // Garante que o build seja compatível com a Vercel
 };
 
-const configWithAnalyzer = withBundleAnalyzer(baseConfig);
-
-export default configWithAnalyzer;
+module.exports = nextConfig;
