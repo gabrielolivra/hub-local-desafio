@@ -1,33 +1,10 @@
 import React, { Fragment } from 'react';
 import { Transition, TransitionChild } from '@headlessui/react';
 import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-  XCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { tv } from 'tailwind-variants';
 import Button from './button';
 
-const icon = tv({
-  base: 'w-10 rounded-full text-white',
-  variants: {
-    type: {
-      error: 'bg-hub-secondary-orange',
-      success: 'bg-hub-primary-light',
-      info: 'bg-hub-primary-light',
-      warn: 'bg-hub-secondary-yellow',
-    },
-  },
-});
-
-const TypeModal = {
-  error: XCircleIcon,
-  success: CheckCircleIcon,
-  warn: ExclamationCircleIcon,
-  info: InformationCircleIcon,
-};
 
 interface ModalProps {
   children: React.ReactNode;
@@ -43,14 +20,12 @@ interface ModalProps {
 export default function Modal({
   title,
   children,
-  type,
   onCancel,
   onConfirm,
   isOpen,
   footerChildren,
   classNameChildren,
 }: ModalProps) {
-  const Icon = TypeModal[type];
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

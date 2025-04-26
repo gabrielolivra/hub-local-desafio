@@ -1,5 +1,4 @@
 import CompanyAdded from "./company-added";
-import NotCompany from "./not-company";
 
 export default function MyCompanys() {
   return (

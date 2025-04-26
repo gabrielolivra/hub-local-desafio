@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { BuildingOfficeIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, UserIcon } from '@heroicons/react/24/outline';
 
 interface ProfileDropdownProps {
   userName: string;

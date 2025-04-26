@@ -4,9 +4,7 @@ import Button from '@/app/ui/components/button';
 import Input from '@/app/ui/components/input';
 import { LoadingComponent } from '@/app/ui/loading';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { useActionState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-
+import { useActionState } from 'react';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(

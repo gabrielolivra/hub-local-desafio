@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import Logo from './ui/logo';
-import { Actions, Subjects } from './lib/contracts/permissions';
-
 
 export default function Forbidden() {
   return (
