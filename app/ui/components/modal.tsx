@@ -5,6 +5,7 @@ import {
   ExclamationCircleIcon,
   InformationCircleIcon,
   XCircleIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { tv } from 'tailwind-variants';
 import Button from './button';
@@ -73,24 +74,23 @@ export default function Modal({
             items-center
             justify-center
             rounded-xl
-            shadow-xl max-w-[1200px] p-5 
+            shadow-xl max-w-[1200px]
             transform
             transition-all
           "
-          >
-            <Icon className={`w-10 mb-2 ${icon({ type })}`} />
-            <p className="font-semibold text-xl mb-4 text-hub-success-primary">
-              {title}
-            </p>
-            <div className={`w-full ${classNameChildren}`}>{children}</div>
-            <div className="flex items-center justify-between w-full mt-4">
+          ><div className='flex items-center justify-between px-2 w-full bg-hub-primary-light rounded-t-xl'>
+              <p className="font-semibold text-2xl text-white p-2">
+                {title}
+              </p>
               {onCancel && (
-                <Button tipo="error" onClick={onCancel}>
-                  Fechar
-                </Button>
+                <XMarkIcon className='w-8 h-8 text-white cursor-pointer' onClick={onCancel} />
               )}
+            </div>
+
+            <div className={`w-full ${classNameChildren}`}>{children}</div>
+            <div className="flex items-center justify-end w-full pt-2 border-2 border-t-gray-300 ">
               {onConfirm && (
-                <Button tipo="success" onClick={onConfirm}>
+                <Button tipo="success" onClick={onConfirm} className='m-4'>
                   Confirmar
                 </Button>
               )}

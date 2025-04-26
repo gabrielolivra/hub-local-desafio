@@ -1,26 +1,21 @@
-import { signOut } from '@/auth';
+import Button from "../ui/components/button";
+import ModalAddCompany from "./_partial/modal-add-company";
 
 export default async function Page() {
+  const notEmpresa = false
   return (
-    <main>
-      <div>
-        <div className="flex justify-end">
-          <form
-            action={async () => {
-              'use server';
-              await signOut();
-            }}
-          >
-            <button className="m-4 pl-4 p-1 pr-4 font-bold text-red-500 border border-red-500 rounded">
-              Sair
-            </button>
-          </form>
+    <main className="flex items-center justify-center h-screen bg-gray-100">
+      {notEmpresa && (
+        <div className="flex flex-col items-center justify-center p-4">
+          <h1 className="text-center font-bold text-5xl">Nenhuma empresa <br />  cadastrada!</h1>
+          <Button
+            tipo="success"
+            className="mt-4 w-[300px]"
+          >Adicionar Empresa
+          </Button>
         </div>
-        <h1 className="text-center text-4xl font-bold p-10">Tela inicial</h1>
-      </div>
-      <div className="flex items-start justify-center my-32 gap-4 flex-wrap">
-
-      </div>
+      )}
+      <ModalAddCompany isOpen />
     </main>
   );
 }

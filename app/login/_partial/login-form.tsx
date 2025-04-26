@@ -4,7 +4,8 @@ import Button from '@/app/ui/components/button';
 import Input from '@/app/ui/components/input';
 import { LoadingComponent } from '@/app/ui/loading';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 export default function LoginForm() {
@@ -12,6 +13,7 @@ export default function LoginForm() {
     authenticateAction,
     undefined,
   );
+
   return (
     <div className='w-[400px] flex flex-col items-center justify-center gap-4 rounded-lg'>
       {isPending && <LoadingComponent />}
