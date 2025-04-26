@@ -10,7 +10,6 @@ const baseConfig: NextConfig = {
     optimizePackageImports: ['icon-library'],
     authInterrupts: true,
   },
-  serverExternalPackages: ['newrelic'],
   reactStrictMode: false,
 };
 

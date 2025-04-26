@@ -8,7 +8,6 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbo -H 0.0.0.0",
-    "dev:newrelic": "NODE_OPTIONS='--require newrelic' next dev --turbo -H 0.0.0.0",
     "start": "next start",
     "lint": "next lint --fix",
     "seed:make": "ts-node ./node_modules/knex/bin/cli.js seed:make --knexfile knexfile.ts",

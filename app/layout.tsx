@@ -1,7 +1,5 @@
-import newrelic from 'newrelic';
 import '@/app/ui/global.css';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 
 const din = localFont({
   src: [
@@ -29,18 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const browserTimingHeader = newrelic.getBrowserTimingHeader({
-    hasToRemoveScriptWrapper: true,
-    allowTransactionlessInjection: true,
-  })
 
   return (
     <html lang="pt" suppressHydrationWarning>
       <title>Desafio HUB local</title>
-      <Script
-        id="nr-browser-agent"
-        dangerouslySetInnerHTML={{ __html: browserTimingHeader }}
-      />
       <body className={`${din.className} antialiased`}>{children}</body>
     </html>
   );
