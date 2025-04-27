@@ -5,10 +5,9 @@ import { signOut } from 'next-auth/react';
 
 interface ProfileDropdownProps {
   userName: string;
-  onLogout?: () => void;
 }
 
-export default function ProfileDropdown({ userName, onLogout }: ProfileDropdownProps) {
+export default function ProfileDropdown({ userName }: ProfileDropdownProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const handlerSingOut = async () => {
     try {
