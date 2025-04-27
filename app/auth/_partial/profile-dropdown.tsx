@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { ChevronDownIcon, UserIcon } from '@heroicons/react/24/outline';
+import { signOut } from 'next-auth/react';
 
 interface ProfileDropdownProps {
   userName: string;
@@ -9,7 +10,20 @@ interface ProfileDropdownProps {
 
 export default function ProfileDropdown({ userName, onLogout }: ProfileDropdownProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const handlerSingOut = async () => {
+    try {
+      await signOut({ redirect: true, callbackUrl: '/login' });
+      if (typeof window !== 'undefined') {
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
+  };
   return (
     <div className="relative">
       <div
@@ -25,7 +39,7 @@ export default function ProfileDropdown({ userName, onLogout }: ProfileDropdownP
       {dropdownOpen && (
         <div className="absolute right-0 mt w-40 bg-white border border-gray-200 rounded shadow-lg">
           <button
-            onClick={onLogout}
+            onClick={handlerSingOut}
             className="w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
           >
             Sair
