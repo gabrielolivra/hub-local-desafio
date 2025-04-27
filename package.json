@@ -2,8 +2,8 @@
   "private": true,
   "engines": {
     "npm": "10.8.2",
-     "node": ">=20.0.0",
-  "pnpm": ">=9.0.0"
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   },
   "scripts": {
     "build": "next build",
@@ -46,6 +46,7 @@
     "postcss": "8.4.38",
     "react": "19.0.0-rc-cd22717c-20241013",
     "react-dom": "19.0.0-rc-cd22717c-20241013",
+    "react-hook-form": "^7.56.1",
     "react-imask": "^7.6.1",
     "react-select": "^5.9.0",
     "react-toastify": "^11.0.2",

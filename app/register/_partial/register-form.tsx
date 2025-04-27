@@ -1,74 +1,116 @@
+'use client'
+import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "@/app/ui/components/button";
 import Input from "@/app/ui/components/input";
+import { useApiFunction } from "@/app/hooks/useApiFunction";
+import { createUser } from "@/app/lib/services/api/auth/login";
+import { useEffect } from "react";
+
+type FormValues = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 export default function RegisterForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+
+  const { callApi, data, error, isFinish, isLoading } = useApiFunction(createUser, { isPublic: true });
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    }
+    callApi(payload);
+  };
+
+  useEffect(() => {
+    if (isLoading) return
+    if (isFinish && !error) {
+      alert(JSON.stringify(data))
+      console.log(data)
+      window.location.href = "/login"
+    }
+    if (error) {
+      alert(JSON.stringify(error))
+    }
+  }, [isLoading, isFinish, data, error])
+
   return (
-    <div className='w-[400px] flex flex-col items-center justify-center gap-4 rounded-lg'>
+    <div className="">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-[400px] flex flex-col items-center justify-center gap-2 rounded-lg"
+      >
+        <div className="w-[400px] flex-1 rounded-lg  pb-4 pt-4">
+          <div className="w-full flex flex-col gap-2">
+            <Input
+              type="text"
+              label="Nome"
+              id="name"
+              {...register("name", { required: "O nome é obrigatório" })}
+              className="w-full"
+              placeholder="Digite seu nome"
+            />
+            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
-      <div className="flex-1 rounded-lg  px-6 pb-4 pt-8 ">
-        <div className="w-full flex flex-col gap-4">
-          <Input
-            type="text"
-            label="Nome"
-            id="registration"
-            name="registration"
-            className="w-full"
-            placeholder="Digite seu nome"
-          />
-          <Input
-            type="email"
-            label="Email"
-            id="registration"
-            name="registration"
-            className="w-full"
-            placeholder="Digite seu email"
-          />
-          <Input
-            type="password"
-            label="Senha"
-            id="password"
-            min={4}
-            name="password"
-            className="w-full"
-            placeholder="Digite sua senha"
-          />
-          <Input
-            type="password"
-            label="Repita a senha"
-            id="password"
-            min={4}
-            name="password"
-            className="w-full"
-            placeholder="Repita sua senha"
-          />
-        </div>
+            <Input
+              type="email"
+              label="Email"
+              id="email"
+              {...register("email", {
+                required: "O email é obrigatório",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Email inválido",
+                },
+              })}
+              className="w-full"
+              placeholder="Digite seu email"
+            />
+            {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
 
-        <Button
-          tipo="success"
-          className="mt-4 w-full"
-        >
-          REGISTRAR
-        </Button>
-        <a href='/login'>
-          <Button
-            tipo="info"
-            className="mt-4 w-[450px]"
-          >
-            LOGAR
+            <Input
+              type="password"
+              label="Senha"
+              id="password"
+              {...register("password", {
+                required: "A senha é obrigatória",
+                minLength: { value: 4, message: "A senha deve ter no mínimo 4 caracteres" },
+              })}
+              className="w-full"
+              placeholder="Digite sua senha"
+            />
+            {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
+
+            <Input
+              type="password"
+              label="Repita a senha"
+              id="confirmPassword"
+              {...register("confirmPassword", {
+                required: "Confirme sua senha",
+                validate: (value, { password }) =>
+                  value === password || "As senhas não coincidem",
+              })}
+              className="w-full"
+              placeholder="Repita sua senha"
+            />
+            {errors.confirmPassword && (
+              <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+            )}
+          </div>
+
+          <Button tipo="success" className="mt-4 w-full" type="submit">
+            REGISTRAR
           </Button>
-        </a>
-        <div className="flex h-8 items-end space-x-1">
-          {/* {errorMessage && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-hub-secondary-orange" />
-              <p className="text-sm text-hub-secondary-orange">
-                {errorMessage}
-              </p>
-            </>
-          )} */}
         </div>
-      </div>
-
-    </div>
-  )
+      </form>
+      <a href="/login">
+        <Button tipo="info" className="mt w-[400px]">
+          LOGAR
+        </Button>
+      </a></div>
+  );
 }

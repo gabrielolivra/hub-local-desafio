@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Logo from "@/app/ui/assets/logo.png"
 import RegisterForm from "./_partial/register-form";
 
 export default function Page() {
@@ -15,7 +16,7 @@ export default function Page() {
       </div>
       <div className="max-w-[400px]h-screen mr-14 flex flex-col items-center justify-center gap-4 rounded-lg">
         <Image
-          src="/ui/assets/logo.png" // Caminho relativo para a imagem
+          src={Logo}
           width={150}
           height={150}
           className="object-contain"

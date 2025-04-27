@@ -26,8 +26,6 @@ const authorize = async (credentials: Record<string, unknown>) => {
     user.name = username;
     user.id = sub;
     user.access_token = response.accessToken;
-    user.refresh_token = response.refreshToken;
-    user.role = role;
     user.token_exp = exp;
     user.token_iat = iat;
 
