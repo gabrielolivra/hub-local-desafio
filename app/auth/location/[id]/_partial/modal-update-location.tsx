@@ -64,10 +64,11 @@ export default function ModalUpdateLocation({ isOpen, onClose, locations }: Moda
       <Modal
         isOpen={isOpen}
         type="success"
-        title="Adicionar local"
+        title={`Editar: ${locations?.name}`}
         onCancel={onClose}
         onConfirm={handleSubmit(handlerCreate)}
-        nameButton="Adicionar"
+        nameButton="Salvar"
+
       >
         <form className="flex flex-col p-4 w-[550px]">
           <Input
