@@ -6,6 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NotLocation from './_partial/not-locations';
+import MyLocations from './_partial/locations';
 
 export default function Page() {
   const { id } = useParams();
@@ -31,13 +32,13 @@ export default function Page() {
         onClick={() => {
           window.history.back()
         }}
-        className='flex items-center gap-2 pt-4 ml-4 text-gray-500 cursor-pointer' >
+        className='flex items-center gap-2 pt-4 ml-8 pb-4 text-gray-500 cursor-pointer' >
         <ArrowLeftIcon className='size-4' />
         <p>Minhas empresas</p>
-        {JSON.stringify(locations)}
       </div>
       {
-        locations?.length === 0 && isFinish && (<NotLocation />)
+        locations?.length === 0 && isFinish ? (<NotLocation />) : (<MyLocations locations={locations || []} />)
+
       }
     </div>
   );

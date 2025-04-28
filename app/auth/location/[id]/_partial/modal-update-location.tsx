@@ -1,0 +1,140 @@
+import { useApiFunction } from "@/app/hooks/useApiFunction";
+import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
+import { apiUpdateLocation } from "@/app/lib/services/api/locations/locations";
+import Input from "@/app/ui/components/input";
+import Modal from "@/app/ui/components/modal";
+import { useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+type FormValues = {
+  name: string
+  cep: string
+  bulevar: string
+  number: string,
+  district: string
+  city: string
+  state: string
+};
+
+interface ModalUpdateLocationProps {
+  isOpen: boolean;
+  onClose: () => void;
+  locations: ILocations | null;
+}
+
+export default function ModalUpdateLocation({ isOpen, onClose, locations }: ModalUpdateLocationProps) {
+  const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateLocation)
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+
+  const handlerCreate: SubmitHandler<FormValues> = async (form) => {
+    const payload = {
+      ...form,
+    }
+    await callApi(locations?.id, payload)
+  };
+
+  useEffect(() => {
+    if (isLoading) return
+    if (isFinish && data) {
+      toast.success('Local atualizado com sucesso', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
+      onClose()
+    }
+    if (error) {
+      toast.error(`Erro ao atualizar local ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
+
+    }
+  }, [isLoading, isFinish, data, error])
+  return (
+    <div>
+      <Modal
+        isOpen={isOpen}
+        type="success"
+        title="Adicionar local"
+        onCancel={onClose}
+        onConfirm={handleSubmit(handlerCreate)}
+        nameButton="Adicionar"
+      >
+        <form className="flex flex-col p-4 w-[550px]">
+          <Input
+            label="Nome"
+            className="w-full"
+            {...register("name", { required: "O nome é obrigatório" })}
+            defaultValue={locations && "name" in locations ? locations.name : ""}
+
+
+          />
+          {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Input
+              label="CEP"
+              className="w-full"
+              {...register("cep", { required: "O cep é obrigatório" })}
+              defaultValue={locations && "cep" in locations ? locations.cep : ""}
+            />
+            {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+
+            <Input
+              label="Rua"
+              className="w-full"
+              {...register("bulevar", { required: "A rua é obrigatório" })}
+              defaultValue={locations && "bulevar" in locations ? locations.bulevar : ""}
+            />
+            {errors.bulevar && <p className="text-sm text-red-500">{errors.bulevar.message}</p>}
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Input
+              label="Numero"
+              className="w-full"
+              {...register("number", { required: "O numero é obrigatório" })}
+              defaultValue={locations && "number" in locations ? locations.number : ""}
+            />
+            {errors.number && <p className="text-sm text-red-500">{errors.number.message}</p>}
+
+            <Input
+              label="Bairro"
+              className="w-full"
+              {...register("district", { required: "O bairro é obrigatório" })}
+              defaultValue={locations && "district" in locations ? locations.district : ""}
+            />
+            {errors.district && <p className="text-sm text-red-500">{errors.district.message}</p>}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Input
+              label="Cidade"
+              className="w-full"
+              {...register("city", { required: "A cidade é obrigatório" })}
+              defaultValue={locations && "city" in locations ? locations.city : ""}
+            />
+            {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
+
+            <Input
+              label="Estado"
+              className="w-full"
+              {...register("state", { required: "O Estado é obrigatório" })}
+              defaultValue={locations && "state" in locations ? locations.state : ""}
+            />
+            {errors.state && <p className="text-sm text-red-500">{errors.state.message}</p>}
+          </div>
+
+        </form>
+      </Modal>
+    </div>
+  )
+}
