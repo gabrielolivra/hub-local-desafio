@@ -1,8 +1,12 @@
+'use client'
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { apiCreateLocation } from "@/app/lib/services/api/locations/locations";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 type FormValues = {
   name: string
@@ -23,30 +27,62 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateLocation)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  const handlerCreate: SubmitHandler<FormValues> = async (payload) => {
-    console.log(payload)
-    // await callApi(data)
+  const { id } = useParams();
+
+  const handlerCreate: SubmitHandler<FormValues> = async (form) => {
+    const payload = {
+      ...form,
+      companyId: id
+    }
+    await callApi(payload)
   };
+
+  useEffect(() => {
+    if (isLoading) return
+    if (isFinish && data) {
+      toast.success('Local adicionado com sucesso', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
+      onClose()
+    }
+    if (error) {
+      toast.error(`Erro ao adicionar local ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
+
+    }
+  }, [isLoading, isFinish, data, error])
   return (
     <div>
       <Modal
         isOpen={isOpen}
         type="success"
-        title="Adicionar Empresa"
+        title="Adicionar local"
         onCancel={onClose}
         onConfirm={handleSubmit(handlerCreate)}
+        nameButton="Adicionar"
       >
         <form className="flex flex-col p-4 w-[550px]">
           <Input
-            label="Nome da Empresa"
+            label="Nome"
             className="w-full"
-            {...register("name", { required: "O nome da empresa é obrigatório" })}
+            {...register("name", { required: "O nome é obrigatório" })}
           />
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
             <Input
-              label="cep"
+              label="CEP"
               className="w-full"
               {...register("cep", { required: "O cep é obrigatório" })}
             />

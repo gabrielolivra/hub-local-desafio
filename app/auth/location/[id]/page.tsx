@@ -34,9 +34,10 @@ export default function Page() {
         className='flex items-center gap-2 pt-4 ml-4 text-gray-500 cursor-pointer' >
         <ArrowLeftIcon className='size-4' />
         <p>Minhas empresas</p>
+        {JSON.stringify(locations)}
       </div>
       {
-        locations == null && (<NotLocation />)
+        locations?.length === 0 && isFinish && (<NotLocation />)
       }
     </div>
   );
