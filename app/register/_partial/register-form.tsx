@@ -19,13 +19,13 @@ export default function RegisterForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(createUser, { isPublic: true });
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const payload = {
       name: data.name,
       email: data.email,
       password: data.password,
     }
-    callApi(payload);
+    await callApi(payload);
   };
 
   useEffect(() => {

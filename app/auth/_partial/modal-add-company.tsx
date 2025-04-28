@@ -48,9 +48,9 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
     }
   }, [isFinish, data, error, isLoading])
 
-  const handlerCreate: SubmitHandler<FormValues> = (data) => {
+  const handlerCreate: SubmitHandler<FormValues> = async (data) => {
     console.log(data)
-    callApi(data)
+    await callApi(data)
   };
 
   return (
