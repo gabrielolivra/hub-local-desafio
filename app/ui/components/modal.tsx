@@ -25,7 +25,17 @@ export default function Modal({
   isOpen,
   footerChildren,
   classNameChildren,
+  type,
 }: ModalProps) {
+  // Define as cores do modal com base no tipo
+  const typeColors = {
+    success: 'bg-green-500 border-green-700',
+    error: 'bg-red-500 border-red-700',
+    warn: 'bg-yellow-500 border-yellow-700',
+    info: 'bg-blue-500 border-blue-700',
+  };
+
+  const headerColor = typeColors[type] || 'bg-gray-500 border-gray-700';
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -43,7 +53,6 @@ export default function Modal({
             className="
             bg-gray-50
             border-2
-            border-gray-400
             flex
             flex-col
             items-center
@@ -53,19 +62,24 @@ export default function Modal({
             transform
             transition-all
           "
-          ><div className='flex items-center justify-between px-2 w-full bg-hub-primary-light rounded-t-xl'>
+          >
+            {/* Cabeçalho do modal com cor dinâmica */}
+            <div className={`flex items-center justify-between px-2 w-full ${headerColor} rounded-t-xl`}>
               <p className="font-semibold text-2xl text-white p-2">
                 {title}
               </p>
               {onCancel && (
-                <XMarkIcon className='w-8 h-8 text-white cursor-pointer' onClick={onCancel} />
+                <XMarkIcon className="w-8 h-8 text-white cursor-pointer" onClick={onCancel} />
               )}
             </div>
 
+            {/* Conteúdo do modal */}
             <div className={`w-full ${classNameChildren}`}>{children}</div>
-            <div className="flex items-center justify-end w-full pt-2 border-2 border-t-gray-300 ">
+
+            {/* Rodapé do modal */}
+            <div className="flex items-center justify-end w-full pt-2 border-2 border-t-gray-300">
               {onConfirm && (
-                <Button tipo="success" onClick={onConfirm} className='m-4'>
+                <Button tipo="success" onClick={onConfirm} className="m-4">
                   Confirmar
                 </Button>
               )}
@@ -76,4 +90,5 @@ export default function Modal({
       </div>
     </Transition>
   );
+
 }

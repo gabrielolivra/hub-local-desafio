@@ -13,7 +13,7 @@ interface ModalEditCompanyProps {
   isOpen: boolean;
   onClose?: () => void;
   onConfirm?: (data: FormValues) => void;
-  company: ICompany | {}
+  company: ICompany
 }
 
 type FormValues = {

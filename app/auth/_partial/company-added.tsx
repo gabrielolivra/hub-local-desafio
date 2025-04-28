@@ -1,8 +1,10 @@
 'use client'
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import { ArchiveBoxArrowDownIcon, PencilIcon } from "@heroicons/react/24/outline";
 import ModalEditCompany from "./modal-edit-company";
 import { useState } from "react";
+import ModalDelete from "./modal-delete";
+import { useRouter } from "next/navigation";
 
 
 interface companies {
@@ -11,11 +13,32 @@ interface companies {
 
 export default function CompanyAdded({ companies }: companies) {
   const [company, setCompany] = useState<ICompany>({} as ICompany)
-  const [modal, setModal] = useState(false)
+  const [modalEdit, setModalEdit] = useState(false)
+  const [modalDelete, setModalDelete] = useState(false)
+
+  const route = useRouter()
+
   const handlerUpdate = (data: ICompany) => {
     setCompany(data)
-    setModal(true)
+    setModalEdit(true)
   }
+
+  const handleDelete = (data: ICompany) => {
+    setCompany(data)
+    setModalDelete(true)
+  }
+
+  const handlerCloseModalDelete = () => {
+    setModalDelete(false)
+    route.refresh()
+  }
+
+  const handlerCloseModalEdit = () => {
+    setModalEdit(false)
+    route.refresh()
+
+  }
+
 
   return (
 
@@ -44,13 +67,17 @@ export default function CompanyAdded({ companies }: companies) {
                 {company.location.length}
               </td>
               <td className=" px-4 py-2 text-sm text-gray-700">
-                <div><PencilIcon className="size-4 cursor-pointer" onClick={() => handlerUpdate(company)} /></div>
+                <div className="flex gap-2 items-center">
+                  <PencilIcon className="size-7 cursor-pointer" onClick={() => handlerUpdate(company)} />
+                  <ArchiveBoxArrowDownIcon className="size-7 cursor-pointer text-red-500" onClick={() => handleDelete(company)} />
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <ModalEditCompany company={company} isOpen={modal} onClose={() => setModal(false)} />
+      <ModalEditCompany company={company} isOpen={modalEdit} onClose={handlerCloseModalEdit} />
+      <ModalDelete company={company} isOpen={modalDelete} onClose={handlerCloseModalDelete} />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { ICompany } from "../lib/contracts/companies/companies.contract";
 
 export default function Page() {
   const [modal, setModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
+  const [isLoading, setIsLoading] = useState(true);
   const route = useRouter();
   const [companies, setCompanies] = useState<ICompany[]>([]);
 
