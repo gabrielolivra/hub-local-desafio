@@ -2,7 +2,7 @@ import { ICreateLocation, ILocations, IUpdateLocation } from "@/app/lib/contract
 import api from "../api"
 
 export const apiCreateLocation = async (data: ICreateLocation): Promise<ILocations> => {
-  const response = await api.post('/location', { data })
+  const response = await api.post('/location', data)
   return response.data
 }
 
@@ -11,7 +11,7 @@ export const apiGetLocations = async (): Promise<ILocations[]> => {
   return response.data
 }
 export const apiUpdateLocation = async (id: string, data: IUpdateLocation): Promise<ILocations> => {
-  const response = await api.put(`/location/${id}`, { data })
+  const response = await api.put(`/location/${id}`, data)
   return response.data
 }
 export const apiDeleteLocation = async (id: string): Promise<void> => {

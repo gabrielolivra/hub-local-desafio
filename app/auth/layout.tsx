@@ -9,8 +9,6 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-
-
   const session = await auth();
 
   return (

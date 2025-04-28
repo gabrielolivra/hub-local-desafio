@@ -1,3 +1,5 @@
+import { ILocations } from "../locations/locations.contract"
+
 export interface ICreateCompany {
   name: string,
   website: string,
@@ -15,4 +17,5 @@ export interface ICompany {
   name: string
   website: string
   cnpj: string
+  location: ILocations[]
 }

@@ -3,7 +3,7 @@ import api from "../api"
 import { IUpdateLocation } from "@/app/lib/contracts/locations/locations.contract"
 
 export const apiCreateCompany = async (data: ICreateCompany): Promise<ICompany> => {
-  const response = await api.post('/company', { data })
+  const response = await api.post('/company', data)
   return response.data
 }
 
@@ -13,7 +13,7 @@ export const apiGetCompanies = async (): Promise<ICompany[]> => {
 }
 
 export const apiUpdateCompany = async (id: string, data: IUpdateLocation): Promise<ICompany> => {
-  const response = await api.put(`/company/${id}`, { data })
+  const response = await api.put(`/company/${id}`, data)
   return response.data
 }
 
