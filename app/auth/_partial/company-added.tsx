@@ -1,15 +1,21 @@
 'use client'
-import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
-import { apiGetCompanies } from "@/app/lib/services/api/companies/companies";
-import { useEffect, useState } from "react";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import ModalEditCompany from "./modal-edit-company";
+import { useState } from "react";
+
 
 interface companies {
   companies: ICompany[]
 }
 
 export default function CompanyAdded({ companies }: companies) {
-  console.log("companies", companies)
+  const [company, setCompany] = useState<ICompany>({} as ICompany)
+  const [modal, setModal] = useState(false)
+  const handlerUpdate = (data: ICompany) => {
+    setCompany(data)
+    setModal(true)
+  }
 
   return (
 
@@ -38,12 +44,13 @@ export default function CompanyAdded({ companies }: companies) {
                 {company.location.length}
               </td>
               <td className=" px-4 py-2 text-sm text-gray-700">
-                <div>botoes</div>
+                <div><PencilIcon className="size-4 cursor-pointer" onClick={() => handlerUpdate(company)} /></div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <ModalEditCompany company={company} isOpen={modal} onClose={() => setModal(false)} />
     </div>
   );
 }

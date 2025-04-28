@@ -2,16 +2,18 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
-import { apiCreateCompany } from "@/app/lib/services/api/companies/companies";
+import { apiCreateCompany, apiUpdateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
 
-interface ModalAddCompanyProps {
+interface ModalEditCompanyProps {
   isOpen: boolean;
   onClose?: () => void;
   onConfirm?: (data: FormValues) => void;
+  company: ICompany | {}
 }
 
 type FormValues = {
@@ -20,14 +22,14 @@ type FormValues = {
   cnpj: string;
 };
 
-export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProps) {
-  const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateCompany)
+export default function ModalEditCompany({ isOpen, onClose, company }: ModalEditCompanyProps) {
+  const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateCompany)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const route = useRouter()
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
-      toast.success("Empresa criada com sucesso", {
+      toast.success("Empresa atualizada com sucesso", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -49,7 +51,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
   }, [isFinish, data, error, isLoading])
 
   const handlerCreate: SubmitHandler<FormValues> = async (data) => {
-    await callApi(data)
+    await callApi(company.id, data)
   };
 
   return (
@@ -57,7 +59,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
       <Modal
         isOpen={isOpen}
         type="success"
-        title="Adicionar Empresa"
+        title={`Editar ${company.name}`}
         onCancel={onClose}
         onConfirm={handleSubmit(handlerCreate)} // Integração com react-hook-form
       >
@@ -65,6 +67,8 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
           <Input
             label="Nome da Empresa"
             className="w-full"
+            defaultValue={("name" in company ? company.name : "")}
+
             {...register("name", { required: "O nome da empresa é obrigatório" })}
           />
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
@@ -73,6 +77,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
             <Input
               label="Website"
               className="w-full"
+              defaultValue={"website" in company ? company.website : ""}
               {...register("website", { required: "O website é obrigatório" })}
             />
             {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
@@ -80,6 +85,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
             <Input
               label="CNPJ"
               className="w-full"
+              defaultValue={"cnpj" in company ? company.cnpj : ""}
               {...register("cnpj", { required: "O CNPJ é obrigatório" })}
             />
             {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
