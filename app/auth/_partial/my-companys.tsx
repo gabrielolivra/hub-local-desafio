@@ -4,6 +4,7 @@ import { apiGetCompanies } from "@/app/lib/services/api/companies/companies";
 import { useEffect, useState } from "react";
 import NotCompany from "./not-company";
 import CompanyAdded from "./company-added";
+import Loading from "../loading";
 
 interface MyCompanysProps {
   onCompaniesUpdate: (companies: ICompany[]) => void;
@@ -25,14 +26,14 @@ export default function MyCompanys({ onCompaniesUpdate }: MyCompanysProps) {
     if (isLoading) return;
     if (isFinish && data) {
       setCompanies(data);
-      onCompaniesUpdate(data); // Envia os dados para o componente pai
+      onCompaniesUpdate(data);
     }
   }, [isLoading, data, error, isFinish]);
 
   return (
     <div className="mt-8 h-[300px] flex items-center justify-center bg-white">
-      {companies.length === 0 && <NotCompany />}
-      {companies.length > 0 && <CompanyAdded companies={companies} />}
+      {isFinish && companies.length === 0 && <NotCompany />}
+      {isFinish && companies.length > 0 && <CompanyAdded companies={companies} />}
     </div>
   );
 }
