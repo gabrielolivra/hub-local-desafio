@@ -1,6 +1,6 @@
 'use client'
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
-import { ArchiveBoxArrowDownIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { ArchiveBoxArrowDownIcon, BuildingOfficeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import ModalEditCompany from "./modal-edit-company";
 import { useState } from "react";
 import ModalDelete from "./modal-delete";
@@ -39,6 +39,9 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
     onCompanyModified()
   }
 
+  const handlerLocation = (data: ICompany) => {
+    route.push(`/auth/location/${data.id}`)
+  }
 
   return (
 
@@ -70,6 +73,7 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
                 <div className="flex gap-2 items-center">
                   <PencilIcon className="size-7 cursor-pointer" onClick={() => handlerUpdate(company)} />
                   <ArchiveBoxArrowDownIcon className="size-7 cursor-pointer text-red-500" onClick={() => handleDelete(company)} />
+                  <BuildingOfficeIcon className="size-7 cursor-pointer" onClick={() => handlerLocation(company)} />
                 </div>
               </td>
             </tr>
