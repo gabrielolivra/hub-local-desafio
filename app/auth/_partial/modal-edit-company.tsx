@@ -61,7 +61,8 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
         type="success"
         title={`Editar ${company.name}`}
         onCancel={onClose}
-        onConfirm={handleSubmit(handlerCreate)} // Integração com react-hook-form
+        onConfirm={handleSubmit(handlerCreate)}
+        nameButton="Salvar"
       >
         <form className="flex flex-col p-4 w-[550px]">
           <Input

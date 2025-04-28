@@ -2,9 +2,17 @@
 import Button from "@/app/ui/components/button";
 import ModalAddCompany from "./modal-add-company";
 import { useState } from "react";
+interface INotCompany {
+  onCompanyModified: () => void
+}
 
-export default function NotCompany() {
+export default function NotCompany({ onCompanyModified }: INotCompany) {
   const [modal, setModal] = useState(false);
+
+  const handlerCloseModal = () => {
+    setModal(false)
+    onCompanyModified()
+  }
 
   return (
     <div>
@@ -19,8 +27,7 @@ export default function NotCompany() {
       </div>
       <ModalAddCompany
         isOpen={modal}
-        onClose={() => setModal(false)}
-        onCofirm={() => setModal(false)}
+        onClose={handlerCloseModal}
       />
     </div >
   )

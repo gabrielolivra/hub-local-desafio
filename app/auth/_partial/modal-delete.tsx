@@ -15,7 +15,7 @@ export default function ModalDelete({ isOpen, onClose, company }: ModalDeleteCom
 
   useEffect(() => {
     if (isLoading) return
-    if (isFinish && data) {
+    if (isFinish && !error) {
       toast.success("Empresa excluída com sucesso", {
         position: "top-right",
         autoClose: 2000,
@@ -47,6 +47,8 @@ export default function ModalDelete({ isOpen, onClose, company }: ModalDeleteCom
         title={`Confirmação de exclusão`}
         onCancel={onClose}
         onConfirm={handlerDeleteCompany}
+        typeButton="error"
+        nameButton="Excluir"
       >
         <div className="w-[450px] h-[100px] flex items-baseline justify-center">
           <p className="mt-4">A empresa <strong>{company.name}</strong> será excluída. Tem certeza dessa ação?</p>

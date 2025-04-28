@@ -15,6 +15,8 @@ interface ModalProps {
   title: string;
   type: 'error' | 'success' | 'warn' | 'info';
   isOpen: boolean;
+  typeButton?: 'error' | 'success' | 'warn' | 'info';
+  nameButton?: string
 }
 
 export default function Modal({
@@ -26,10 +28,12 @@ export default function Modal({
   footerChildren,
   classNameChildren,
   type,
+  typeButton,
+  nameButton
+
 }: ModalProps) {
-  // Define as cores do modal com base no tipo
   const typeColors = {
-    success: 'bg-green-500 border-green-700',
+    success: 'bg-hub-primary-light',
     error: 'bg-red-500 border-red-700',
     warn: 'bg-yellow-500 border-yellow-700',
     info: 'bg-blue-500 border-blue-700',
@@ -79,8 +83,8 @@ export default function Modal({
             {/* Rodapé do modal */}
             <div className="flex items-center justify-end w-full pt-2 border-2 border-t-gray-300">
               {onConfirm && (
-                <Button tipo="success" onClick={onConfirm} className="m-4">
-                  Confirmar
+                <Button tipo={typeButton || 'success'} onClick={onConfirm} className="m-4">
+                  {nameButton || 'Confirmar'}
                 </Button>
               )}
               {footerChildren}

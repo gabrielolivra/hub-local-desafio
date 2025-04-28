@@ -23,7 +23,6 @@ type FormValues = {
 export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateCompany)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  const route = useRouter()
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -35,7 +34,6 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
         pauseOnHover: true,
       })
       onClose?.()
-      route.refresh()
     }
     if (error) {
       toast.error(JSON.stringify(error.message), {
@@ -59,7 +57,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
         type="success"
         title="Adicionar Empresa"
         onCancel={onClose}
-        onConfirm={handleSubmit(handlerCreate)} // Integração com react-hook-form
+        onConfirm={handleSubmit(handlerCreate)}
       >
         <form className="flex flex-col p-4 w-[550px]">
           <Input

@@ -18,6 +18,10 @@ export default function MyCompanys({ onCompaniesUpdate }: MyCompanysProps) {
     await callApi();
   };
 
+  const handleCompanyModified = () => {
+    call();
+  };
+
   useEffect(() => {
     call();
   }, []);
@@ -32,8 +36,9 @@ export default function MyCompanys({ onCompaniesUpdate }: MyCompanysProps) {
 
   return (
     <div className="mt-8 h-[300px] flex items-center justify-center bg-white">
-      {isFinish && companies.length === 0 && <NotCompany />}
-      {isFinish && companies.length > 0 && <CompanyAdded companies={companies} />}
+      {isFinish && companies.length === 0 && <NotCompany onCompanyModified={handleCompanyModified} />}
+      {isFinish && companies.length > 0 && <CompanyAdded companies={companies} onCompanyModified={handleCompanyModified} />}
+      {isLoading && <Loading />}
     </div>
   );
 }

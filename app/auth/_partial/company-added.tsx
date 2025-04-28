@@ -9,9 +9,10 @@ import { useRouter } from "next/navigation";
 
 interface companies {
   companies: ICompany[]
+  onCompanyModified: () => void
 }
 
-export default function CompanyAdded({ companies }: companies) {
+export default function CompanyAdded({ companies, onCompanyModified }: companies) {
   const [company, setCompany] = useState<ICompany>({} as ICompany)
   const [modalEdit, setModalEdit] = useState(false)
   const [modalDelete, setModalDelete] = useState(false)
@@ -30,13 +31,12 @@ export default function CompanyAdded({ companies }: companies) {
 
   const handlerCloseModalDelete = () => {
     setModalDelete(false)
-    route.refresh()
+    onCompanyModified()
   }
 
   const handlerCloseModalEdit = () => {
     setModalEdit(false)
-    route.refresh()
-
+    onCompanyModified()
   }
 
 
