@@ -2,8 +2,10 @@
 import { useApiFunction } from '@/app/hooks/useApiFunction';
 import { ILocations } from '@/app/lib/contracts/locations/locations.contract';
 import { apiGetLocations } from '@/app/lib/services/api/locations/locations';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import NotLocation from './_partial/not-locations';
 
 export default function Page() {
   const { id } = useParams();
@@ -24,9 +26,18 @@ export default function Page() {
   }, [data, error, isFinish, isLoading])
 
   return (
-    <div>
-      <h1>Detalhes da Empresa: {id}</h1>
-      <p>{JSON.stringify(locations)}</p>
+    <div style={{ height: 'calc(100vh - 64px)' }} className='bg-gray-300'>
+      <div
+        onClick={() => {
+          window.history.back()
+        }}
+        className='flex items-center gap-2 pt-4 ml-4 text-gray-500 cursor-pointer' >
+        <ArrowLeftIcon className='size-4' />
+        <p>Minhas empresas</p>
+      </div>
+      {
+        locations == null && (<NotLocation />)
+      }
     </div>
   );
 }

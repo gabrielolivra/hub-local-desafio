@@ -6,7 +6,6 @@ import { apiCreateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 
 interface ModalAddCompanyProps {
   isOpen: boolean;
