@@ -37,7 +37,7 @@ export default function Page() {
         <p>Minhas empresas</p>
       </div>
       {
-        locations?.length === 0 && isFinish ? (<NotLocation />) : (<MyLocations locations={locations || []} />)
+        locations?.length === 0 && isFinish ? (<NotLocation />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
 
       }
     </div>

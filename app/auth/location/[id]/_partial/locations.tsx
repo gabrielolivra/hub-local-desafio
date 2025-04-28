@@ -1,14 +1,15 @@
 'use client'
-import { ArchiveBoxArrowDownIcon, BuildingOfficeIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { ArchiveBoxArrowDownIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
 import ModalUpdateLocation from "./modal-update-location";
+import ModalDeleteLocation from "./modal-delete-location";
 
 
 interface locations {
   locations: ILocations[]
-  onCompanyModified?: () => void
+  onCompanyModified: () => void
 }
 
 export default function MyLocations({ locations, onCompanyModified }: locations) {
@@ -21,6 +22,7 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
   const handlerUpdate = (data: ILocations) => {
     setLocation(data)
     setModalEdit(true)
+
   }
 
   const handleDelete = (data: ILocations) => {
@@ -30,14 +32,12 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
 
   const handlerCloseModalDelete = () => {
     setModalDelete(false)
+    onCompanyModified()
   }
 
   const handlerCloseModalEdit = () => {
     setModalEdit(false)
-  }
-
-  const handlerLocation = (data: ILocations) => {
-    route.push(`/auth/location/${data.id}`)
+    onCompanyModified()
   }
 
   return (
@@ -71,6 +71,9 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
         </tbody>
       </table>
       <ModalUpdateLocation isOpen={modalEdit} onClose={handlerCloseModalEdit} locations={location} />
+      {location && (
+        <ModalDeleteLocation isOpen={modalDelete} onClose={handlerCloseModalDelete} location={location} />
+      )}
     </div>
   );
 }
