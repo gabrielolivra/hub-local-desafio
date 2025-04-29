@@ -85,56 +85,68 @@ export default function ModalUpdateLocation({ isOpen, onClose, onConfirm, locati
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="CEP"
-              className="w-full"
-              {...register("cep", { required: "O cep é obrigatório" })}
-              defaultValue={locations && "cep" in locations ? locations.cep : ""}
-            />
-            {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="CEP"
+                className="w-full"
+                {...register("cep", { required: "O cep é obrigatório" })}
+                defaultValue={locations && "cep" in locations ? locations.cep : ""}
+              />
+              {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="Rua"
+                className="w-full"
+                {...register("bulevar", { required: "A rua é obrigatório" })}
+                defaultValue={locations && "bulevar" in locations ? locations.bulevar : ""}
+              />
+              {errors.bulevar && <p className="text-sm text-red-500">{errors.bulevar.message}</p>}
+            </div>
 
-            <Input
-              label="Rua"
-              className="w-full"
-              {...register("bulevar", { required: "A rua é obrigatório" })}
-              defaultValue={locations && "bulevar" in locations ? locations.bulevar : ""}
-            />
-            {errors.bulevar && <p className="text-sm text-red-500">{errors.bulevar.message}</p>}
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Numero"
-              className="w-full"
-              {...register("number", { required: "O numero é obrigatório" })}
-              defaultValue={locations && "number" in locations ? locations.number : ""}
-            />
-            {errors.number && <p className="text-sm text-red-500">{errors.number.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Numero"
+                className="w-full"
+                {...register("number", { required: "O numero é obrigatório" })}
+                defaultValue={locations && "number" in locations ? locations.number : ""}
+              />
+              {errors.number && <p className="text-sm text-red-500">{errors.number.message}</p>}
+            </div>
 
-            <Input
-              label="Bairro"
-              className="w-full"
-              {...register("district", { required: "O bairro é obrigatório" })}
-              defaultValue={locations && "district" in locations ? locations.district : ""}
-            />
-            {errors.district && <p className="text-sm text-red-500">{errors.district.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Bairro"
+                className="w-full"
+                {...register("district", { required: "O bairro é obrigatório" })}
+                defaultValue={locations && "district" in locations ? locations.district : ""}
+              />
+              {errors.district && <p className="text-sm text-red-500">{errors.district.message}</p>}
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Cidade"
-              className="w-full"
-              {...register("city", { required: "A cidade é obrigatório" })}
-              defaultValue={locations && "city" in locations ? locations.city : ""}
-            />
-            {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Cidade"
+                className="w-full"
+                {...register("city", { required: "A cidade é obrigatório" })}
+                defaultValue={locations && "city" in locations ? locations.city : ""}
+              />
+              {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="Estado"
+                className="w-full"
+                {...register("state", { required: "O Estado é obrigatório" })}
+                defaultValue={locations && "state" in locations ? locations.state : ""}
+              />
+              {errors.state && <p className="text-sm text-red-500">{errors.state.message}</p>}
+            </div>
 
-            <Input
-              label="Estado"
-              className="w-full"
-              {...register("state", { required: "O Estado é obrigatório" })}
-              defaultValue={locations && "state" in locations ? locations.state : ""}
-            />
-            {errors.state && <p className="text-sm text-red-500">{errors.state.message}</p>}
           </div>
 
         </form>
