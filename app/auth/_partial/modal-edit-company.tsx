@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
-import { apiCreateCompany, apiUpdateCompany } from "@/app/lib/services/api/companies/companies";
+import { apiUpdateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";

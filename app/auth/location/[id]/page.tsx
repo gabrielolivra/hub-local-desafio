@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NotLocation from './_partial/not-locations';
 import MyLocations from './_partial/locations';
+import Button from '@/app/ui/components/button';
 
 export default function Page() {
   const { id } = useParams();
@@ -27,17 +28,21 @@ export default function Page() {
   }, [data, error, isFinish, isLoading])
 
   return (
-    <div style={{ height: 'calc(100vh - 64px)' }} className='bg-gray-300'>
-      <div
-        onClick={() => {
-          window.history.back()
-        }}
-        className='flex items-center gap-2 pt-4 ml-8 pb-4 text-gray-500 cursor-pointer' >
-        <ArrowLeftIcon className='size-4' />
-        <p>Minhas empresas</p>
+    <div style={{ height: 'calc(100vh - 64px)' }} className='bg-gray-200'>
+      <div className='flex justify-between items-center pt-6'>
+        <div
+          onClick={() => {
+            window.history.back()
+          }}
+          className='flex items-center gap-2 pt-4 ml-8 pb-4 text-gray-500 cursor-pointer' >
+          <ArrowLeftIcon className='size-4' />
+          <p>Minhas empresas</p>
+        </div>
+        <Button tipo='success' className='mr-8 w-[200px]'>Adicionar empresa</Button>
       </div>
+
       {
-        locations?.length === 0 && isFinish ? (<NotLocation />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
+        locations?.length === 0 && isFinish ? (<NotLocation onCompanyModified={call} />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
 
       }
     </div>

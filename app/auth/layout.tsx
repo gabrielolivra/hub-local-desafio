@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
-import { SessionProvider, signOut } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import ProfileDropdown from './_partial/profile-dropdown';
 

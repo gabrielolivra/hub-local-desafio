@@ -1,7 +1,6 @@
 'use client'
 import { ArchiveBoxArrowDownIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
 import ModalUpdateLocation from "./modal-update-location";
 import ModalDeleteLocation from "./modal-delete-location";
@@ -16,8 +15,6 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
   const [location, setLocation] = useState<ILocations | null>(null)
   const [modalEdit, setModalEdit] = useState(false)
   const [modalDelete, setModalDelete] = useState(false)
-
-  const route = useRouter()
 
   const handlerUpdate = (data: ILocations) => {
     setLocation(data)
