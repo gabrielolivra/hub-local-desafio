@@ -7,6 +7,7 @@ import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
+
 interface ModalAddCompanyProps {
   isOpen: boolean;
   onClose?: () => void;
@@ -73,7 +74,6 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
               {...register("website", { required: "O website é obrigatório" })}
             />
             {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
-
             <Input
               label="CNPJ"
               className="w-full"

@@ -1,7 +1,5 @@
 import { useApiFunction } from "@/app/hooks/useApiFunction";
-import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
 import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
-import { apiDeleteCompany } from "@/app/lib/services/api/companies/companies";
 import { apiDeleteLocation } from "@/app/lib/services/api/locations/locations";
 import Modal from "@/app/ui/components/modal";
 import { useEffect } from "react";

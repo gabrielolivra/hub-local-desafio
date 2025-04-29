@@ -33,7 +33,7 @@ export default function Page() {
   return (
     <main
       style={{ height: 'calc(100vh - 64px)' }}
-      className="flex flex-col items-center justify-center h-screen bg-gray-400"
+      className="flex flex-col items-center justify-center h-screen bg-gray-200"
     >
       {isLoading == false && companies.length > 0 && (
         <Button
