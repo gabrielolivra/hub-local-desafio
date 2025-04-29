@@ -23,10 +23,6 @@ export default async function Layout({
         </div>
         <ProfileDropdown
           userName={session?.user?.name || 'Usuário'}
-          onLogout={async () => {
-            'use server';
-            await signOut();
-          }}
         />
       </header>
       <div className="pt-16">{children}</div>

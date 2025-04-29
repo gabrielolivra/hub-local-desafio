@@ -5,6 +5,8 @@ import Input from "@/app/ui/components/input";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { createUser } from "@/app/lib/services/api/auth/login";
 import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { LoadingComponent } from "@/app/ui/loading";
 
 type FormValues = {
   name: string;
@@ -17,29 +19,34 @@ export default function RegisterForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(createUser, { isPublic: true });
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const payload = {
       name: data.name,
       email: data.email,
       password: data.password,
     }
-    callApi(payload);
+    await callApi(payload);
   };
 
   useEffect(() => {
     if (isLoading) return
     if (isFinish && !error) {
-      alert(JSON.stringify(data))
-      console.log(data)
+      toast.success("Usuário criado com sucesso", {
+        position: "top-right"
+      })
       window.location.href = "/login"
     }
     if (error) {
-      alert(JSON.stringify(error))
+      toast.error(error.message, {
+        position: "top-right"
+      })
     }
   }, [isLoading, isFinish, data, error])
 
   return (
     <div className="">
+      {isLoading && <LoadingComponent />}
+      <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[400px] flex flex-col items-center justify-center gap-2 rounded-lg"

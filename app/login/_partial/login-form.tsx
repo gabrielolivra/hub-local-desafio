@@ -4,7 +4,8 @@ import Button from '@/app/ui/components/button';
 import Input from '@/app/ui/components/input';
 import { LoadingComponent } from '@/app/ui/loading';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
@@ -12,8 +13,18 @@ export default function LoginForm() {
     undefined,
   );
 
+  useEffect(() => {
+    if (isPending) return
+    if (errorMessage) {
+      toast.error(errorMessage, {
+        position: "top-right"
+      });
+    }
+  }, [errorMessage, isPending])
+
   return (
     <div className='w-[400px] flex flex-col items-center justify-center gap-4 rounded-lg'>
+      <ToastContainer />
       {isPending && <LoadingComponent />}
       <form action={formAction} className="w-[500px]">
         <div className="flex-1 rounded-lg  px-6 pb-4 pt-8 ">

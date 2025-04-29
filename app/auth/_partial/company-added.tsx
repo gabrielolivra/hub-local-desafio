@@ -1,47 +1,87 @@
-import Button from "@/app/ui/components/button";
+'use client'
+import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
+import { ArchiveBoxArrowDownIcon, BuildingOfficeIcon, PencilIcon } from "@heroicons/react/24/outline";
+import ModalEditCompany from "./modal-edit-company";
+import { useState } from "react";
+import ModalDelete from "./modal-delete";
+import { useRouter } from "next/navigation";
 
-export default function CompanyAdded() {
-  const companies = [
-    { name: "Empresa A", website: "10", cnpj: "00.000.000/0001-00" },
-    { name: "Empresa B", website: "88", cnpj: "11.111.111/0001-11" },
-    { name: "Empresa C", website: "0", cnpj: "22.222.222/0001-22" },
-  ];
+
+interface companies {
+  companies: ICompany[]
+  onCompanyModified: () => void
+}
+
+export default function CompanyAdded({ companies, onCompanyModified }: companies) {
+  const [company, setCompany] = useState<ICompany>({} as ICompany)
+  const [modalEdit, setModalEdit] = useState(false)
+  const [modalDelete, setModalDelete] = useState(false)
+
+  const route = useRouter()
+
+  const handlerUpdate = (data: ICompany) => {
+    setCompany(data)
+    setModalEdit(true)
+  }
+
+  const handleDelete = (data: ICompany) => {
+    setCompany(data)
+    setModalDelete(true)
+  }
+
+  const handlerCloseModalDelete = () => {
+    setModalDelete(false)
+    onCompanyModified()
+  }
+
+  const handlerCloseModalEdit = () => {
+    setModalEdit(false)
+    onCompanyModified()
+  }
+
+  const handlerLocation = (data: ICompany) => {
+    route.push(`/auth/location/${data.id}`)
+  }
 
   return (
-    <div>
-      <Button tipo="success" className="w-[300px] ml-auto py-2 mb-4">Adicionar Empresa</Button>
-      <div className="overflow-x-auto overflow-y-auto p-4 w-[95vw]  rounded-lg shadow-md">
-        <table className="min-w-full ">
-          <thead>
-            <tr className="">
-              <th className="border-b font-bold border-b-gray-300 px-4 py-2 text-left text-sm text-gray-700">
-                Empresa
-              </th>
-              <th className="border-b border-b-gray-300 px-4 py-2 text-left text-sm font-bold text-gray-700">
-                Qt de Locais
-              </th>
-              <th className="border-b border-b-gray-300 px-4 py-2 text-left text-sm font-bold text-gray-700">
-                Ações
-              </th>
+
+    <div className="overflow-x-auto overflow-y-auto p-4 w-[95vw] h-[300px]">
+      <table className="min-w-full rounded-md shadow-md">
+        <thead>
+          <tr className="">
+            <th className="border-b font-bold border-b-gray-300 px-4 py-2 text-left text-sm text-gray-700">
+              Empresa
+            </th>
+            <th className="border-b border-b-gray-300 px-4 py-2 text-left text-sm font-bold text-gray-700">
+              Qt de Locais
+            </th>
+            <th className="border-b border-b-gray-300 px-4 py-2 text-left text-sm font-bold text-gray-700">
+              Ações
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {companies.map((company, index) => (
+            <tr key={index} className="border-b border-b-gray-300">
+              <td className=" px-4 py-2 text-sm text-gray-700">
+                {company.name}
+              </td>
+              <td className=" px-4 py-2 text-sm text-gray-700">
+                {company.location.length}
+              </td>
+              <td className=" px-4 py-2 text-sm text-gray-700">
+                <div className="flex gap-2 items-center">
+                  <PencilIcon className="size-7 cursor-pointer" onClick={() => handlerUpdate(company)} />
+                  <ArchiveBoxArrowDownIcon className="size-7 cursor-pointer text-red-500" onClick={() => handleDelete(company)} />
+                  <BuildingOfficeIcon className="size-7 cursor-pointer" onClick={() => handlerLocation(company)} />
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {companies.map((company, index) => (
-              <tr key={index} className="border-b border-b-gray-300">
-                <td className=" px-4 py-2 text-sm text-gray-700">
-                  {company.name}
-                </td>
-                <td className=" px-4 py-2 text-sm text-gray-700">
-                  {company.website}
-                </td>
-                <td className=" px-4 py-2 text-sm text-gray-700">
-                  <div>botoes</div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
+      <ModalEditCompany company={company} isOpen={modalEdit} onClose={handlerCloseModalEdit} />
+      <ModalDelete company={company} isOpen={modalDelete} onClose={handlerCloseModalDelete} />
     </div>
   );
 }
