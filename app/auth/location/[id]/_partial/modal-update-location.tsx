@@ -3,6 +3,7 @@ import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
 import { apiUpdateLocation } from "@/app/lib/services/api/locations/locations";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
+import { LoadingComponent } from "@/app/ui/loading";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -20,10 +21,11 @@ type FormValues = {
 interface ModalUpdateLocationProps {
   isOpen: boolean;
   onClose: () => void;
+  onConfirm?: () => void;
   locations: ILocations | null;
 }
 
-export default function ModalUpdateLocation({ isOpen, onClose, locations }: ModalUpdateLocationProps) {
+export default function ModalUpdateLocation({ isOpen, onClose, onConfirm, locations }: ModalUpdateLocationProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateLocation)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
@@ -45,7 +47,7 @@ export default function ModalUpdateLocation({ isOpen, onClose, locations }: Moda
         pauseOnHover: true,
         draggable: true,
       })
-      onClose()
+      onConfirm?.()
     }
     if (error) {
       toast.error(`Erro ao atualizar local ${error.message}`, {
@@ -70,6 +72,7 @@ export default function ModalUpdateLocation({ isOpen, onClose, locations }: Moda
         nameButton="Salvar"
 
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome"

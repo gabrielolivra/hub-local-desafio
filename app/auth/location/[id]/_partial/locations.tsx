@@ -32,12 +32,12 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
     setModalDelete(true)
   }
 
-  const handlerCloseModalDelete = () => {
+  const handlerConfirmModalDelete = () => {
     setModalDelete(false)
     onCompanyModified()
   }
 
-  const handlerCloseModalEdit = () => {
+  const handlerConfirmModalEdit = () => {
     setModalEdit(false)
     onCompanyModified()
   }
@@ -68,10 +68,10 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
           </Tbody>
         </Table>
       </div >
-      <ModalUpdateLocation isOpen={modalEdit} onClose={handlerCloseModalEdit} locations={location} />
+      <ModalUpdateLocation onClose={() => setModalEdit(false)} isOpen={modalEdit} onConfirm={handlerConfirmModalEdit} locations={location} />
       {
         location && (
-          <ModalDeleteLocation isOpen={modalDelete} onClose={handlerCloseModalDelete} location={location} />
+          <ModalDeleteLocation onConfirm={handlerConfirmModalDelete} isOpen={modalDelete} onClose={() => setModalDelete(false)} location={location} />
         )
       }
     </div>

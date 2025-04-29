@@ -75,21 +75,25 @@ export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Website"
-              className="w-full"
-              defaultValue={"website" in company ? company.website : ""}
-              {...register("website", { required: "O website é obrigatório" })}
-            />
-            {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Website"
+                className="w-full"
+                defaultValue={"website" in company ? company.website : ""}
+                {...register("website", { required: "O website é obrigatório" })}
+              />
+              {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            </div>
 
-            <Input
-              label="CNPJ"
-              className="w-full"
-              defaultValue={"cnpj" in company ? company.cnpj : ""}
-              {...register("cnpj", { required: "O CNPJ é obrigatório" })}
-            />
-            {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="CNPJ"
+                className="w-full"
+                defaultValue={"cnpj" in company ? company.cnpj : ""}
+                {...register("cnpj", { required: "O CNPJ é obrigatório" })}
+              />
+              {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            </div>
           </div>
         </form>
       </Modal>

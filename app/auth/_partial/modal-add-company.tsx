@@ -6,6 +6,7 @@ import { apiCreateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { LoadingComponent } from "@/app/ui/loading";
 
 
 interface ModalAddCompanyProps {
@@ -60,6 +61,7 @@ export default function ModalAddCompany({ isOpen, onClose, onConfirm }: ModalAdd
         onCancel={onClose}
         onConfirm={handleSubmit(handlerCreate)}
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome da Empresa"
@@ -69,18 +71,23 @@ export default function ModalAddCompany({ isOpen, onClose, onConfirm }: ModalAdd
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Website"
-              className="w-full"
-              {...register("website", { required: "O website é obrigatório" })}
-            />
-            {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
-            <Input
-              label="CNPJ"
-              className="w-full"
-              {...register("cnpj", { required: "O CNPJ é obrigatório" })}
-            />
-            {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Website"
+                className="w-full"
+                {...register("website", { required: "O website é obrigatório" })}
+              />
+              {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="CNPJ"
+                className="w-full"
+                {...register("cnpj", { required: "O CNPJ é obrigatório" })}
+              />
+              {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            </div>
+
           </div>
         </form>
       </Modal>

@@ -16,7 +16,6 @@ export default function Page() {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiGetLocations)
   const [locations, setLocations] = useState<ILocations[] | null>(null)
   const [modal, setModal] = useState(false)
-  const route = useRouter()
   const handleCloseModal = () => {
     setModal(false)
     call()
@@ -48,7 +47,7 @@ export default function Page() {
           <ArrowLeftIcon className='size-4' />
           <p>Minhas empresas</p>
         </div>
-        <Button onClick={() => setModal(true)} tipo='success' className='mr-8 w-[200px]'>Adicionar Local</Button>
+        {locations && locations?.length > 0 && isFinish && (<Button onClick={() => setModal(true)} tipo='success' className='mr-8 w-[200px]'>Adicionar Local</Button>)}
       </div>
 
       {

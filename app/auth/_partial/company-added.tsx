@@ -69,9 +69,9 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
                 <Td>{companie.location?.length > 0 ? companie.location?.length : 0}</Td>
                 <Th>
                   <div className="flex gap-2 items-center">
-                    <PencilIcon className="size-7 cursor-pointer" onClick={() => handlerUpdate(companie)} />
-                    <ArchiveBoxArrowDownIcon className="size-7 cursor-pointer text-red-500" onClick={() => handleDelete(companie)} />
-                    <BuildingOfficeIcon className="size-7 cursor-pointer" onClick={() => handlerLocation(companie)} />
+                    <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(companie)} />
+                    <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(companie)} />
+                    <BuildingOfficeIcon className="size-5 cursor-pointer" onClick={() => handlerLocation(companie)} />
                   </div>
                 </Th>
               </Tr>
