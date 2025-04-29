@@ -15,8 +15,8 @@ export default function NotCompany({ onCompanyModified }: INotCompany) {
   }
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center p-4">
+    <div className="rounded-md">
+      <div className="flex flex-col items-center justify-center p-4 rounded-lg bg-white">
         <h1 className="text-center font-bold text-5xl">Nenhuma empresa <br />  cadastrada!</h1>
         <Button
           tipo="success"

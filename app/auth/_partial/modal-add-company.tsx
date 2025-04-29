@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 interface ModalAddCompanyProps {
   isOpen: boolean;
   onClose?: () => void;
-  onConfirm?: (data: FormValues) => void;
+  onConfirm?: () => void;
 }
 
 type FormValues = {
@@ -20,9 +20,9 @@ type FormValues = {
   cnpj: string;
 };
 
-export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProps) {
+export default function ModalAddCompany({ isOpen, onClose, onConfirm }: ModalAddCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateCompany)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>();
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -33,7 +33,8 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
         closeOnClick: true,
         pauseOnHover: true,
       })
-      onClose?.()
+      reset()
+      onConfirm?.()
     }
     if (error) {
       toast.error(JSON.stringify(error.message), {

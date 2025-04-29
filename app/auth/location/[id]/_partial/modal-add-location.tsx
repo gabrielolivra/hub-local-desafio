@@ -27,7 +27,7 @@ interface ModalAddLocationProps {
 export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationProps) {
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateLocation)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { id } = useParams();
 
   const handlerCreate: SubmitHandler<FormValues> = async (form) => {
@@ -50,6 +50,7 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
         draggable: true,
       })
       onClose()
+      reset()
     }
     if (error) {
       toast.error(`Erro ao adicionar local ${error.message}`, {

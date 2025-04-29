@@ -43,36 +43,37 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
   }
 
   return (
-
-    <div className=" bg-white h-[300px]">
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Locais</Th>
-            <Th>Ações</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {locations.map((location, index) => (
-            <Tr key={index}>
-              <Th>{location.name}</Th>
-              <Th>
-                <div className="flex gap-2 items-center">
-                  <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(location)} />
-                  <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
-                </div>
-              </Th>
+    <div className="p-8">
+      <div className="bg-white h-[300px] rounded overflow-y-scroll">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Locais</Th>
+              <Th>Ações</Th>
             </Tr>
-          ))}
+          </Thead>
+          <Tbody>
+            {locations.map((location, index) => (
+              <Tr key={index}>
+                <Th>{location.name}</Th>
+                <Th>
+                  <div className="flex gap-2 items-center">
+                    <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(location)} />
+                    <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
+                  </div>
+                </Th>
+              </Tr>
+            ))}
 
-        </Tbody>
-      </Table>
+          </Tbody>
+        </Table>
+      </div >
       <ModalUpdateLocation isOpen={modalEdit} onClose={handlerCloseModalEdit} locations={location} />
       {
         location && (
           <ModalDeleteLocation isOpen={modalDelete} onClose={handlerCloseModalDelete} location={location} />
         )
       }
-    </div >
+    </div>
   );
 }

@@ -8,11 +8,12 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
+import { LoadingComponent } from "@/app/ui/loading";
 
 interface ModalEditCompanyProps {
   isOpen: boolean;
-  onClose?: () => void;
-  onConfirm?: (data: FormValues) => void;
+  onClose: () => void;
+  onConfirm: () => void;
   company: ICompany
 }
 
@@ -22,10 +23,9 @@ type FormValues = {
   cnpj: string;
 };
 
-export default function ModalEditCompany({ isOpen, onClose, company }: ModalEditCompanyProps) {
+export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }: ModalEditCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateCompany)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  const route = useRouter()
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -36,8 +36,7 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
         closeOnClick: true,
         pauseOnHover: true,
       })
-      onClose?.()
-      route.refresh()
+      onConfirm()
     }
     if (error) {
       toast.error(JSON.stringify(error.message), {
@@ -64,6 +63,7 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
         onConfirm={handleSubmit(handlerCreate)}
         nameButton="Salvar"
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome da Empresa"
