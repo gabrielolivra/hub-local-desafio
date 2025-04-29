@@ -3,6 +3,7 @@ import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { apiCreateLocation } from "@/app/lib/services/api/locations/locations";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
+import { LoadingComponent } from "@/app/ui/loading";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -72,6 +73,7 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
         onConfirm={handleSubmit(handlerCreate)}
         nameButton="Adicionar"
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome"

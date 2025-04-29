@@ -3,16 +3,26 @@ import { useApiFunction } from '@/app/hooks/useApiFunction';
 import { ILocations } from '@/app/lib/contracts/locations/locations.contract';
 import { apiGetLocations } from '@/app/lib/services/api/locations/locations';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NotLocation from './_partial/not-locations';
 import MyLocations from './_partial/locations';
 import Button from '@/app/ui/components/button';
+import ModalAddCompany from '../../_partial/modal-add-company';
+import ModalAddLocation from './_partial/modal-add-location';
 
 export default function Page() {
   const { id } = useParams();
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiGetLocations)
   const [locations, setLocations] = useState<ILocations[] | null>(null)
+  const [modal, setModal] = useState(false)
+  const route = useRouter()
+  const handleCloseModal = () => {
+    setModal(false)
+    call()
+
+  }
+
   const call = async () => {
     callApi(id)
   }
@@ -38,13 +48,14 @@ export default function Page() {
           <ArrowLeftIcon className='size-4' />
           <p>Minhas empresas</p>
         </div>
-        <Button tipo='success' className='mr-8 w-[200px]'>Adicionar empresa</Button>
+        <Button onClick={() => setModal(true)} tipo='success' className='mr-8 w-[200px]'>Adicionar Local</Button>
       </div>
 
       {
         locations?.length === 0 && isFinish ? (<NotLocation onCompanyModified={call} />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
 
       }
+      <ModalAddLocation isOpen={modal} onClose={handleCloseModal} />
     </div>
   );
 }

@@ -44,34 +44,7 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
 
   return (
 
-    <div className=" bg-white  h-[300px]">
-      {/* <table className="min-w-full rounded-md shadow-md">
-        <thead>
-          <tr className="">
-            <th className="border-b font-bold border-b-gray-300 px-4 py-2 text-left text-sm text-gray-700">
-              Locais
-            </th>
-            <th className="border-b border-b-gray-300 px-4 py-2 text-left text-sm font-bold text-gray-700">
-              Ações
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {locations.map((location, index) => (
-            <tr key={index} className="border-b border-b-gray-300">
-              <td className=" px-4 py-2 text-sm text-gray-700">
-                {location.name}
-              </td>
-              <td className=" px-4 py-2 text-sm text-gray-700">
-                <div className="flex gap-2 items-center">
-                  <PencilIcon className="size-7 cursor-pointer" onClick={() => handlerUpdate(location)} />
-                  <ArchiveBoxArrowDownIcon className="size-7 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+    <div className=" bg-white h-[300px]">
       <Table>
         <Thead>
           <Tr>
