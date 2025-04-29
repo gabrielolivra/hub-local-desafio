@@ -4,6 +4,11 @@ import { useState } from "react";
 import { ILocations } from "@/app/lib/contracts/locations/locations.contract";
 import ModalUpdateLocation from "./modal-update-location";
 import ModalDeleteLocation from "./modal-delete-location";
+import Table from "@/app/ui/components/table/table";
+import Thead from "@/app/ui/components/table/thead";
+import Tr from "@/app/ui/components/table/tr";
+import Th from "@/app/ui/components/table/th";
+import Tbody from "@/app/ui/components/table/tbody";
 
 
 interface locations {
@@ -39,8 +44,8 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
 
   return (
 
-    <div className=" bg-white m-auto overflow-x-auto overflow-y-auto p-4 w-[95vw] h-[300px]">
-      <table className="min-w-full rounded-md shadow-md">
+    <div className=" bg-white  h-[300px]">
+      {/* <table className="min-w-full rounded-md shadow-md">
         <thead>
           <tr className="">
             <th className="border-b font-bold border-b-gray-300 px-4 py-2 text-left text-sm text-gray-700">
@@ -66,11 +71,35 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Locais</Th>
+            <Th>Ações</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {locations.map((location, index) => (
+            <Tr key={index}>
+              <Th>{location.name}</Th>
+              <Th>
+                <div className="flex gap-2 items-center">
+                  <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(location)} />
+                  <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
+                </div>
+              </Th>
+            </Tr>
+          ))}
+
+        </Tbody>
+      </Table>
       <ModalUpdateLocation isOpen={modalEdit} onClose={handlerCloseModalEdit} locations={location} />
-      {location && (
-        <ModalDeleteLocation isOpen={modalDelete} onClose={handlerCloseModalDelete} location={location} />
-      )}
-    </div>
+      {
+        location && (
+          <ModalDeleteLocation isOpen={modalDelete} onClose={handlerCloseModalDelete} location={location} />
+        )
+      }
+    </div >
   );
 }

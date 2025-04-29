@@ -52,7 +52,6 @@ export default function ModalDeleteLocation({ isOpen, onClose, location }: Modal
       >
         <div className="w-[450px] h-[100px] flex items-baseline justify-center">
           <p className="mt-4">O local <strong>{location.name}</strong> será excluído. Tem certeza dessa ação?</p>
-
         </div>
 
       </Modal>

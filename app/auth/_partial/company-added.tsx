@@ -67,7 +67,7 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
                 {company.name}
               </td>
               <td className=" px-4 py-2 text-sm text-gray-700">
-                {company?.location?.length}
+                {company?.location?.length > 0 ? company?.location?.length : 0}
               </td>
               <td className=" px-4 py-2 text-sm text-gray-700">
                 <div className="flex gap-2 items-center">
