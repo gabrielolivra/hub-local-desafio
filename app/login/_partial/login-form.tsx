@@ -23,7 +23,7 @@ export default function LoginForm() {
   }, [errorMessage, isPending])
 
   return (
-    <div className='w-[400px] flex flex-col items-center justify-center gap-4 rounded-lg'>
+    <div className='w-[500px] flex flex-col items-center justify-center gap-4 rounded-lg'>
       <ToastContainer />
       {isPending && <LoadingComponent />}
       <form action={formAction} className="w-[500px]">
