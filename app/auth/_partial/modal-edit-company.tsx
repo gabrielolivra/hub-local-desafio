@@ -26,7 +26,7 @@ type FormValues = {
 
 export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }: ModalEditCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateCompany)
-  const { register, setValue, watch, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, setValue, watch, handleSubmit, reset, formState: { errors } } = useForm<FormValues>();
   const cnpj = watch('cnpj');
 
   const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +56,10 @@ export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }
       })
     }
   }, [isFinish, data, error, isLoading])
+
+  useEffect(() => {
+    reset()
+  }, [onClose])
 
   const handlerCreate: SubmitHandler<FormValues> = async (data) => {
     await callApi(company.id, data)

@@ -28,7 +28,7 @@ interface ModalUpdateLocationProps {
 
 export default function ModalUpdateLocation({ isOpen, onClose, onConfirm, locations }: ModalUpdateLocationProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateLocation)
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>();
+  const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<FormValues>();
 
   const cep = watch('cep');
 
@@ -71,6 +71,10 @@ export default function ModalUpdateLocation({ isOpen, onClose, onConfirm, locati
 
     }
   }, [isLoading, isFinish, data, error])
+
+  useEffect(() => {
+    reset()
+  }, [onClose])
   return (
     <div>
       <Modal
@@ -109,6 +113,7 @@ export default function ModalUpdateLocation({ isOpen, onClose, onConfirm, locati
                   },
                 })}
                 value={cep}
+                defaultValue={locations && "cep" in locations ? locations.cep : ""}
                 onChange={handleCepChange}
                 placeholder="00000-000"
               />

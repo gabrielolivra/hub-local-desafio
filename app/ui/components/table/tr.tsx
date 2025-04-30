@@ -8,7 +8,7 @@ export default function Tr({
   pointer?: boolean;
 }) {
   return (
-    <tr className='w-full border-b-2 flex justify-between py-3 text-sm' onClick={onClick}>
+    <tr className='w-full border-b-2 px-6 py-6 text-sm' onClick={onClick}>
       {children}
     </tr>
   );

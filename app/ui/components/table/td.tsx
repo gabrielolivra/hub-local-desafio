@@ -7,7 +7,7 @@ interface TdProps {
 }
 
 const tdVariants = tv({
-  base: 'whitespace-nowrap px-10',
+  base: 'whitespace-nowrap px-10 py-4',
   variants: {
     nowrap: {
       false: 'whitespace-normal',

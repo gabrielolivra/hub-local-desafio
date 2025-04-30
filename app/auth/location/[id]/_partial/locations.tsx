@@ -9,6 +9,7 @@ import Thead from "@/app/ui/components/table/thead";
 import Tr from "@/app/ui/components/table/tr";
 import Th from "@/app/ui/components/table/th";
 import Tbody from "@/app/ui/components/table/tbody";
+import Td from "@/app/ui/components/table/td";
 
 
 interface locations {
@@ -22,6 +23,7 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
   const [modalDelete, setModalDelete] = useState(false)
 
   const handlerUpdate = (data: ILocations) => {
+    console.log(data)
     setLocation(data)
     setModalEdit(true)
 
@@ -44,30 +46,50 @@ export default function MyLocations({ locations, onCompanyModified }: locations)
 
   return (
     <div className="p-8">
-      <div className="bg-white h-[300px] rounded overflow-y-scroll">
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Locais</Th>
-              <Th>Ações</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {locations.map((location, index) => (
-              <Tr key={index}>
-                <Th>{location.name}</Th>
-                <Th>
-                  <div className="flex gap-2 items-center">
-                    <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(location)} />
-                    <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
-                  </div>
-                </Th>
+      <div className="bg-white rounded">
+        <div className="overflow-auto max-h-[300px]">
+          <Table classProps="w-full table-fixed">
+            <Thead className="sticky top-0 bg-white z-10">
+              <Tr>
+                <Th>Empresa</Th>
+                <Th>Ações</Th>
               </Tr>
-            ))}
-
-          </Tbody>
-        </Table>
-      </div >
+            </Thead>
+            <Tbody>
+              {locations.map((location, index) => (
+                <Tr key={index}>
+                  <Td>{location.name}</Td>
+                  <Td>
+                    <div className="flex gap-2 items-center">
+                      <PencilIcon className="size-5 cursor-pointer" onClick={() => handlerUpdate(location)} />
+                      <ArchiveBoxArrowDownIcon className="size-5 cursor-pointer text-red-500" onClick={() => handleDelete(location)} />
+                    </div>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </div>
+        {/* Rodapé fixo */}
+        <div className="flex justify-between border-t border-gray-300 px-4 py-2">
+          <div></div>
+          <div className="flex items-center gap-8">
+            <p><strong>Página:</strong> 1</p>
+            <div className="flex items-center gap-2">
+              <p className="font-bold">Qt por página</p>
+              <select className="border-none bg-transparent rounded p-1">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+              </select>
+            </div>
+            <div className="flex gap-2 items-center">
+              <button className="bg-gray-500 p-1 rounded-md text-gray-300">Anterior</button>
+              <button className="bg-hub-primary-light p-1 rounded-md text-white">Próximo</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <ModalUpdateLocation onClose={() => setModalEdit(false)} isOpen={modalEdit} onConfirm={handlerConfirmModalEdit} locations={location} />
       {
         location && (
