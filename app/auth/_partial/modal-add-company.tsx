@@ -6,12 +6,13 @@ import { apiCreateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { LoadingComponent } from "@/app/ui/loading";
 
 
 interface ModalAddCompanyProps {
   isOpen: boolean;
   onClose?: () => void;
-  onConfirm?: (data: FormValues) => void;
+  onConfirm?: () => void;
 }
 
 type FormValues = {
@@ -20,9 +21,9 @@ type FormValues = {
   cnpj: string;
 };
 
-export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProps) {
+export default function ModalAddCompany({ isOpen, onClose, onConfirm }: ModalAddCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateCompany)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>();
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -33,7 +34,8 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
         closeOnClick: true,
         pauseOnHover: true,
       })
-      onClose?.()
+      reset()
+      onConfirm?.()
     }
     if (error) {
       toast.error(JSON.stringify(error.message), {
@@ -59,6 +61,7 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
         onCancel={onClose}
         onConfirm={handleSubmit(handlerCreate)}
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome da Empresa"
@@ -68,18 +71,23 @@ export default function ModalAddCompany({ isOpen, onClose }: ModalAddCompanyProp
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Website"
-              className="w-full"
-              {...register("website", { required: "O website é obrigatório" })}
-            />
-            {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
-            <Input
-              label="CNPJ"
-              className="w-full"
-              {...register("cnpj", { required: "O CNPJ é obrigatório" })}
-            />
-            {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Website"
+                className="w-full"
+                {...register("website", { required: "O website é obrigatório" })}
+              />
+              {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="CNPJ"
+                className="w-full"
+                {...register("cnpj", { required: "O CNPJ é obrigatório" })}
+              />
+              {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            </div>
+
           </div>
         </form>
       </Modal>

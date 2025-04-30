@@ -7,13 +7,13 @@ export default function LoginPage() {
       <div>
         <Image
           src="/favicon.ico"
-          width={620}
+          width={550}
           height={800}
           className="h-screen object-contair"
           alt=""
         />
       </div>
-      <div className="max-w-[400px]h-screen mr-14 flex flex-col items-center justify-center gap-4 rounded-lg">
+      <div className="max-w-[400px] h-screen mr-16 flex flex-col items-center justify-center gap-4 rounded-lg">
         <Image
           src={Logo}
           width={150}

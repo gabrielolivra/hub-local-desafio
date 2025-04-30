@@ -8,11 +8,19 @@ import { useEffect, useState } from 'react';
 import NotLocation from './_partial/not-locations';
 import MyLocations from './_partial/locations';
 import Button from '@/app/ui/components/button';
+import ModalAddLocation from './_partial/modal-add-location';
 
 export default function Page() {
   const { id } = useParams();
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiGetLocations)
   const [locations, setLocations] = useState<ILocations[] | null>(null)
+  const [modal, setModal] = useState(false)
+  const handleCloseModal = () => {
+    setModal(false)
+    call()
+
+  }
+
   const call = async () => {
     callApi(id)
   }
@@ -38,13 +46,14 @@ export default function Page() {
           <ArrowLeftIcon className='size-4' />
           <p>Minhas empresas</p>
         </div>
-        <Button tipo='success' className='mr-8 w-[200px]'>Adicionar empresa</Button>
+        {locations && locations?.length > 0 && isFinish && (<Button onClick={() => setModal(true)} tipo='success' className='mr-8 w-[200px]'>Adicionar Local</Button>)}
       </div>
 
       {
         locations?.length === 0 && isFinish ? (<NotLocation onCompanyModified={call} />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
 
       }
+      <ModalAddLocation isOpen={modal} onClose={handleCloseModal} />
     </div>
   );
 }

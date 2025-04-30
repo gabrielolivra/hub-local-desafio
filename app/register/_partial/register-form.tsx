@@ -32,9 +32,11 @@ export default function RegisterForm() {
     if (isLoading) return
     if (isFinish && !error) {
       toast.success("Usuário criado com sucesso", {
-        position: "top-right"
-      })
-      window.location.href = "/login"
+        position: "top-right",
+      });
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 300);
     }
     if (error) {
       toast.error(error.message, {

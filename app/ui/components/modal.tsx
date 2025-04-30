@@ -56,7 +56,6 @@ export default function Modal({
           <div
             className="
             bg-gray-50
-            border-2
             flex
             flex-col
             items-center
@@ -81,7 +80,7 @@ export default function Modal({
             <div className={`w-full ${classNameChildren}`}>{children}</div>
 
             {/* Rodapé do modal */}
-            <div className="flex items-center justify-end w-full pt-2 border-2 border-t-gray-300">
+            <div className="flex items-center justify-end w-full pt-2 border-2 rounded-b-xl border-t-gray-300">
               {onConfirm && (
                 <Button tipo={typeButton || 'success'} onClick={onConfirm} className="m-4">
                   {nameButton || 'Confirmar'}

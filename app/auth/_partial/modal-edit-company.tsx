@@ -6,13 +6,13 @@ import { apiUpdateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
+import { LoadingComponent } from "@/app/ui/loading";
 
 interface ModalEditCompanyProps {
   isOpen: boolean;
-  onClose?: () => void;
-  onConfirm?: (data: FormValues) => void;
+  onClose: () => void;
+  onConfirm: () => void;
   company: ICompany
 }
 
@@ -22,10 +22,9 @@ type FormValues = {
   cnpj: string;
 };
 
-export default function ModalEditCompany({ isOpen, onClose, company }: ModalEditCompanyProps) {
+export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }: ModalEditCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateCompany)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  const route = useRouter()
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -36,8 +35,7 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
         closeOnClick: true,
         pauseOnHover: true,
       })
-      onClose?.()
-      route.refresh()
+      onConfirm()
     }
     if (error) {
       toast.error(JSON.stringify(error.message), {
@@ -64,6 +62,7 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
         onConfirm={handleSubmit(handlerCreate)}
         nameButton="Salvar"
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome da Empresa"
@@ -75,21 +74,25 @@ export default function ModalEditCompany({ isOpen, onClose, company }: ModalEdit
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Website"
-              className="w-full"
-              defaultValue={"website" in company ? company.website : ""}
-              {...register("website", { required: "O website é obrigatório" })}
-            />
-            {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Website"
+                className="w-full"
+                defaultValue={"website" in company ? company.website : ""}
+                {...register("website", { required: "O website é obrigatório" })}
+              />
+              {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
+            </div>
 
-            <Input
-              label="CNPJ"
-              className="w-full"
-              defaultValue={"cnpj" in company ? company.cnpj : ""}
-              {...register("cnpj", { required: "O CNPJ é obrigatório" })}
-            />
-            {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="CNPJ"
+                className="w-full"
+                defaultValue={"cnpj" in company ? company.cnpj : ""}
+                {...register("cnpj", { required: "O CNPJ é obrigatório" })}
+              />
+              {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+            </div>
           </div>
         </form>
       </Modal>

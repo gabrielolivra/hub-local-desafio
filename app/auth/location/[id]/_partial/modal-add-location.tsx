@@ -3,6 +3,7 @@ import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { apiCreateLocation } from "@/app/lib/services/api/locations/locations";
 import Input from "@/app/ui/components/input";
 import Modal from "@/app/ui/components/modal";
+import { LoadingComponent } from "@/app/ui/loading";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -26,7 +27,7 @@ interface ModalAddLocationProps {
 export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationProps) {
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateLocation)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { id } = useParams();
 
   const handlerCreate: SubmitHandler<FormValues> = async (form) => {
@@ -49,6 +50,7 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
         draggable: true,
       })
       onClose()
+      reset()
     }
     if (error) {
       toast.error(`Erro ao adicionar local ${error.message}`, {
@@ -72,6 +74,7 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
         onConfirm={handleSubmit(handlerCreate)}
         nameButton="Adicionar"
       >
+        {isLoading && <LoadingComponent />}
         <form className="flex flex-col p-4 w-[550px]">
           <Input
             label="Nome"
@@ -81,52 +84,63 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="CEP"
-              className="w-full"
-              {...register("cep", { required: "O cep é obrigatório" })}
-            />
-            {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="CEP"
+                className="w-full"
+                {...register("cep", { required: "O cep é obrigatório" })}
+              />
+              {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="Rua"
+                className="w-full"
+                {...register("bulevar", { required: "A rua é obrigatório" })}
+              />
+              {errors.bulevar && <p className="text-sm text-red-500">{errors.bulevar.message}</p>}
+            </div>
 
-            <Input
-              label="Rua"
-              className="w-full"
-              {...register("bulevar", { required: "A rua é obrigatório" })}
-            />
-            {errors.bulevar && <p className="text-sm text-red-500">{errors.bulevar.message}</p>}
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Numero"
-              className="w-full"
-              {...register("number", { required: "O numero é obrigatório" })}
-            />
-            {errors.number && <p className="text-sm text-red-500">{errors.number.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Numero"
+                className="w-full"
+                {...register("number", { required: "O numero é obrigatório" })}
+              />
+              {errors.number && <p className="text-sm text-red-500">{errors.number.message}</p>}
+            </div>
 
-            <Input
-              label="Bairro"
-              className="w-full"
-              {...register("district", { required: "O bairro é obrigatório" })}
-            />
-            {errors.district && <p className="text-sm text-red-500">{errors.district.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Bairro"
+                className="w-full"
+                {...register("district", { required: "O bairro é obrigatório" })}
+              />
+              {errors.district && <p className="text-sm text-red-500">{errors.district.message}</p>}
+            </div>
+
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Input
-              label="Cidade"
-              className="w-full"
-              {...register("city", { required: "A cidade é obrigatório" })}
-            />
-            {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
-
-            <Input
-              label="Estado"
-              className="w-full"
-              {...register("state", { required: "O Estado é obrigatório" })}
-            />
-            {errors.state && <p className="text-sm text-red-500">{errors.state.message}</p>}
+            <div className="flex flex-col">
+              <Input
+                label="Cidade"
+                className="w-full"
+                {...register("city", { required: "A cidade é obrigatório" })}
+              />
+              {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
+            </div>
+            <div className="flex flex-col">
+              <Input
+                label="Estado"
+                className="w-full"
+                {...register("state", { required: "O Estado é obrigatório" })}
+              />
+              {errors.state && <p className="text-sm text-red-500">{errors.state.message}</p>}
+            </div>
           </div>
-
         </form>
       </Modal>
     </div>
