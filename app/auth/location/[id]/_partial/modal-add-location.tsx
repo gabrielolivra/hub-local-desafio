@@ -8,6 +8,8 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { unMask, mask } from 'remask';
+
 
 type FormValues = {
   name: string
@@ -27,8 +29,16 @@ interface ModalAddLocationProps {
 export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationProps) {
 
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiCreateLocation)
-  const { register, reset, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, watch, setValue, reset, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { id } = useParams();
+
+  const cep = watch('cep');
+
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const originalValue = unMask(e.target.value);
+    const masked = mask(originalValue, ['99999-999']);
+    setValue('cep', masked);
+  }
 
   const handlerCreate: SubmitHandler<FormValues> = async (form) => {
     const payload = {
@@ -88,9 +98,22 @@ export default function ModalAddLocation({ isOpen, onClose }: ModalAddLocationPr
               <Input
                 label="CEP"
                 className="w-full"
-                {...register("cep", { required: "O cep é obrigatório" })}
+                {...register('cep', {
+                  required: 'O cep é obrigatório',
+                  validate: (value) => {
+                    const numeric = unMask(value);
+                    if (numeric.length !== 8) return 'O CEP deve ter 8 números';
+                    if (!/^\d+$/.test(numeric)) return 'CEP inválido';
+                    return true;
+                  },
+                })}
+                value={cep}
+                onChange={handleCepChange}
+                placeholder="00000-000"
               />
-              {errors.cep && <p className="text-sm text-red-500">{errors.cep.message}</p>}
+              {errors.cep && (
+                <p className="text-sm text-red-500">{errors.cep.message}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <Input

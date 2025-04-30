@@ -51,6 +51,7 @@
     "react-input-mask": "^2.0.4",
     "react-select": "^5.9.0",
     "react-toastify": "^11.0.2",
+    "remask": "^1.2.2",
     "require-in-the-middle": "^7.4.0",
     "sqlite3": "^5.1.7",
     "tailwind-variants": "^0.3.0",
@@ -60,7 +61,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@azure/app-configuration": "^1.8.0",
     "@eslint/js": "^9.14.0",
     "@faker-js/faker": "^9.2.0",
     "@types/bcrypt": "^5.0.2",
