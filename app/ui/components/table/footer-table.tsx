@@ -12,9 +12,9 @@ export default function FooterTable() {
             <option>30</option>
           </select>
         </div>
-        <div className="flex gap-2 items-center">
-          <button className="bg-gray-500 p-1 rounded-md text-gray-300">Anterior</button>
-          <button className="bg-hub-primary-light p-1 rounded-md text-white">Próximo</button>
+        <div className="flex items-center">
+          <button className="bg-gray-300 p-1 px-3 font-bold rounded-l-md text-gray-600">Anterior</button>
+          <button className="bg-hub-primary-light p-1 px-3 rounded-r-md font-bold text-white">Próximo</button>
         </div>
       </div>
     </div>
