@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <main className="flex flex-col">
       <div className="flex items-center justify-between">
-        <div className="flex flex-col justify-center h-screen w-full rounded-lg bg-gray-50 ml-4">
+        <div className="flex flex-col justify-center h-screen w-full rounded-lg ml-8">
           <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
             <strong>Bem vindo ao HUB local</strong><br></br>
           </p>
@@ -16,11 +16,12 @@ export default function Page() {
           >
             <span>Acessar HUB</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>
+          <p className='bottom-0 left-0 absolute m-1'>Desenvolvido por Gabriel Bernardino de Oliveira</p>
         </div>
         <div className="flex items-center justify-center h-screen py-2 ">
           <Image
             src="/favicon.ico"
-            width={700}
+            width={800}
             height={800}
             className="h-screen object-cover"
             alt=""
