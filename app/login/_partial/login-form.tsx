@@ -30,7 +30,7 @@ export default function LoginForm() {
         <div className="flex-1 rounded-lg  px-6 pb-4 pt-8 ">
           <div className="w-full flex flex-col gap-4">
             <Input
-              type="text"
+              type="email"
               label="Email"
               id="registration"
               name="registration"

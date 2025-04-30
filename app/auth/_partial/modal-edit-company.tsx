@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
 import { LoadingComponent } from "@/app/ui/loading";
+import { mask, unMask } from 'remask';
+
 
 interface ModalEditCompanyProps {
   isOpen: boolean;
@@ -24,7 +26,14 @@ type FormValues = {
 
 export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }: ModalEditCompanyProps) {
   const { callApi, data, error, isFinish, isLoading } = useApiFunction(apiUpdateCompany)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { register, setValue, watch, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const cnpj = watch('cnpj');
+
+  const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const originalValue = unMask(e.target.value);
+    const masked = mask(originalValue, ['99.999.999/9999-99']);
+    setValue('cnpj', masked);
+  };
   useEffect(() => {
     if (isLoading) return
     if (isFinish && data) {
@@ -83,15 +92,23 @@ export default function ModalEditCompany({ isOpen, onClose, onConfirm, company }
               />
               {errors.website && <p className="text-sm text-red-500">{errors.website.message}</p>}
             </div>
-
             <div className="flex flex-col">
               <Input
                 label="CNPJ"
                 className="w-full"
+                {...register('cnpj', {
+                  required: 'O CNPJ é obrigatório',
+                  validate: (value) =>
+                    unMask(value).length === 14 || 'O CNPJ deve conter 14 números',
+                })}
+                value={cnpj}
                 defaultValue={"cnpj" in company ? company.cnpj : ""}
-                {...register("cnpj", { required: "O CNPJ é obrigatório" })}
+                onChange={handleCnpjChange}
+                placeholder="00.000.000/0000-00"
               />
-              {errors.cnpj && <p className="text-sm text-red-500">{errors.cnpj.message}</p>}
+              {errors.cnpj && (
+                <p className="text-sm text-red-500">{errors.cnpj.message}</p>
+              )}
             </div>
           </div>
         </form>
