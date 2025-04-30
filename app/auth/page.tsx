@@ -1,9 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import Button from "../ui/components/button";
 import MyCompanys from "./_partial/my-companys";
-import ModalAddCompany from "./_partial/modal-add-company";
-import { useRouter } from "next/navigation";
 import { ICompany } from "../lib/contracts/companies/companies.contract";
 
 export default function Page() {

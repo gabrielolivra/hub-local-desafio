@@ -6,7 +6,6 @@ import { apiUpdateCompany } from "@/app/lib/services/api/companies/companies";
 import { useApiFunction } from "@/app/hooks/useApiFunction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { ICompany } from "@/app/lib/contracts/companies/companies.contract";
 import { LoadingComponent } from "@/app/ui/loading";
 

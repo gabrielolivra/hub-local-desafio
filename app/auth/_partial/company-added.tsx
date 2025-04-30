@@ -11,8 +11,6 @@ import Tr from "@/app/ui/components/table/tr";
 import Th from "@/app/ui/components/table/th";
 import Tbody from "@/app/ui/components/table/tbody";
 import Td from "@/app/ui/components/table/td";
-import Button from "@/app/ui/components/button";
-
 
 interface companies {
   companies: ICompany[]
@@ -27,7 +25,6 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
   const route = useRouter()
 
   const handlerUpdate = (data: ICompany) => {
-    console.log(data)
     setCompany(data)
     setModalEdit(true)
   }

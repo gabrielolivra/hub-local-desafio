@@ -3,12 +3,11 @@ import { useApiFunction } from '@/app/hooks/useApiFunction';
 import { ILocations } from '@/app/lib/contracts/locations/locations.contract';
 import { apiGetLocations } from '@/app/lib/services/api/locations/locations';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NotLocation from './_partial/not-locations';
 import MyLocations from './_partial/locations';
 import Button from '@/app/ui/components/button';
-import ModalAddCompany from '../../_partial/modal-add-company';
 import ModalAddLocation from './_partial/modal-add-location';
 
 export default function Page() {
