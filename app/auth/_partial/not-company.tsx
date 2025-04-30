@@ -9,14 +9,14 @@ interface INotCompany {
 export default function NotCompany({ onCompanyModified }: INotCompany) {
   const [modal, setModal] = useState(false);
 
-  const handlerCloseModal = () => {
+  const handlerConfirmModal = () => {
     setModal(false)
     onCompanyModified()
   }
 
   return (
     <div className="rounded-md">
-      <div className="flex flex-col items-center justify-center p-4 rounded-lg bg-white">
+      <div className="flex flex-col items-center justify-center p-4 rounded-lg">
         <h1 className="text-center font-bold text-5xl">Nenhuma empresa <br />  cadastrada!</h1>
         <Button
           tipo="success"
@@ -27,7 +27,8 @@ export default function NotCompany({ onCompanyModified }: INotCompany) {
       </div>
       <ModalAddCompany
         isOpen={modal}
-        onClose={handlerCloseModal}
+        onConfirm={handlerConfirmModal}
+        onClose={() => setModal(false)}
       />
     </div >
   )
