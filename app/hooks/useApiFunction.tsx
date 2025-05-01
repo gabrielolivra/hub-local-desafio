@@ -22,7 +22,7 @@ export function useApiFunction<T>(
 ): UseApiFunctionResponse<T> {
   const { isPublic = false } = options;
 
-  const { data: session } = useSession(); // SEMPRE chama useSession
+  const { data: session } = useSession()
   const token = session?.user?.access_token ?? null;
 
   const [data, setData] = useState<T | null>(defaultValue);
