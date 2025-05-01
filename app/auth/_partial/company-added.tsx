@@ -46,7 +46,7 @@ export default function CompanyAdded({ companies, onCompanyModified }: companies
   }
 
   const handlerLocation = (data: ICompany) => {
-    route.push(`/auth/location/${data.id}`)
+    route.push(`/auth/location/${data.id}?company=${data.name}`)
   }
 
   return (
