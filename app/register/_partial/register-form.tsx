@@ -46,14 +46,14 @@ export default function RegisterForm() {
   }, [isLoading, isFinish, data, error])
 
   return (
-    <div className="">
+    <div className="w-[500px] flex flex-col items-center justify-center gap-4 rounded-lg">
       {isLoading && <LoadingComponent />}
       <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[400px] flex flex-col items-center justify-center gap-2 rounded-lg"
+        className="w-[500px]"
       >
-        <div className="w-[400px] flex-1 rounded-lg  pb-4 pt-4">
+        <div className="flex-1 rounded-lg  px-6 pb-4 pt-8 ">
           <div className="w-full flex flex-col gap-2">
             <Input
               type="text"
@@ -116,10 +116,15 @@ export default function RegisterForm() {
           </Button>
         </div>
       </form>
-      <a href="/login">
-        <Button tipo="info" className="mt w-[400px]">
+      <a href='/login' className='absolute mt-[420px]'>
+        <Button
+          tipo="info"
+          className="mt-4 w-[450px]"
+          aria-disabled
+        >
           LOGAR
         </Button>
-      </a></div>
+      </a>
+    </div>
   );
 }

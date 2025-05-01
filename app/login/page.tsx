@@ -14,13 +14,14 @@ export default function LoginPage() {
           alt=""
         />
       </div>
-      <div className="w-1/2 h-screen mr-16 flex flex-col items-center justify-center gap-4 rounded-lg">
+      <div className="w-1/2 h-screen mr-16 flex flex-col items-center justify-center gap-2 rounded-lg">
         <Image
           src={Logo}
-          width={150}
-          height={150}
+          width={200}
+          height={200}
           className="object-contain"
           alt="Logo"
+          quality={100}
         />
         <LoginForm />
       </div>
