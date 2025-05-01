@@ -18,7 +18,6 @@ export default function Page() {
   const handleCloseModal = () => {
     setModal(false)
     call()
-
   }
 
   const call = async () => {
@@ -50,7 +49,7 @@ export default function Page() {
       </div>
 
       {
-        locations?.length === 0 && isFinish ? (<NotLocation onCompanyModified={call} />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
+        locations && locations?.length === 0 && isFinish ? (<NotLocation onCompanyModified={call} />) : (<MyLocations onCompanyModified={call} locations={locations || []} />)
 
       }
       <ModalAddLocation isOpen={modal} onClose={handleCloseModal} />
