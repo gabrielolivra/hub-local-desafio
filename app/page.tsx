@@ -1,6 +1,8 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
+import Banner from "@/app/ui/assets/banner.svg"
+
 
 export default function Page() {
   return (
@@ -20,7 +22,7 @@ export default function Page() {
         </div>
         <div className="flex items-center justify-center h-screen py-2 ">
           <Image
-            src="/favicon.ico"
+            src={Banner}
             width={800}
             height={800}
             className="h-screen object-cover"
