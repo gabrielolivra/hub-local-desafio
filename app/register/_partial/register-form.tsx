@@ -116,7 +116,7 @@ export default function RegisterForm() {
           </Button>
         </div>
       </form>
-      <a href='/login' className='absolute mt-[420px]'>
+      <a href='/login' className='-mt-6'>
         <Button
           tipo="info"
           className="mt-4 w-[450px]"
